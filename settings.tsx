@@ -11,4 +11,4 @@ export const mintText = [
 export const image = "https://retirementcoin.io/assets/images/artwork/OG_RETIREMAN2.png";
 
 //website title
-export const headerText = "Mint Retirement VIP Pass";
+export const headerText = "Mint OG Retirement Coin";
