@@ -8,7 +8,7 @@ export const mintText = [
 ];
 
 //header image in the ui. replace with your own
-export const image = "https://retirementcoin.io/assets/images/artwork/OG_RETIREMAN2.png";
+export const image = "https://retirementcoin.io/assets/images/artwork/memes/meme8.jpg";
 
 //website title
 export const headerText = "Mint OG Retirement Coin";

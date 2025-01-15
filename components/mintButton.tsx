@@ -131,12 +131,12 @@ const mintClick = async (
     return;
   }
 
-  let buyBeer = true;
-  console.log("buyBeer",process.env.NEXT_PUBLIC_BUYMARKBEER )
+  let buyBeer = false;
+  //console.log("buyBeer",process.env.NEXT_PUBLIC_BUYMARKBEER )
 
   if (process.env.NEXT_PUBLIC_BUYMARKBEER  === "false") {
     buyBeer = false;
-    console.log("The Creator does not want to pay for MarkSackerbergs beer 😒");
+    //console.log("The Creator does not want to pay for MarkSackerbergs beer 😒");
   }
 
   try {
@@ -191,7 +191,7 @@ const mintClick = async (
       tables = [fetchedLut];
     } else {
       createStandaloneToast().toast({
-        title: "The developer should really set a lookup table!",
+        title: "LUT!",
         status: "warning",
         duration: 900,
         isClosable: true,
