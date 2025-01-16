@@ -18,6 +18,10 @@
     --hover-background-rgb: 243, 244, 246;
 }
 
+html{
+  height:100%;
+}
+
 @keyframes breathe {
   0%, 100% {
     transform: scale(1); /* Normal size */

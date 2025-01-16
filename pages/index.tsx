@@ -203,8 +203,9 @@ export default function Home() {
         <style jsx global>
           {`
           body {
-            background: #3ec2d1; /* Base background color for the sky */
-            overflow: hidden; /* Prevent scrollbars */
+            background: linear-gradient(180deg, #89CFF0 0%, #FFD580 50%, #FF9A8B 100%); /*#3ec2d1;  Base background color for the sky */
+            height:100%;
+            /* overflow: hidden  Prevent scrollbars */
             position: relative;
           }
 
