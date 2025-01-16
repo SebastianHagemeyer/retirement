@@ -59,7 +59,7 @@ const useCandyMachine = (
         try {
           candyMachine = await fetchCandyMachine(umi, publicKey(candyMachineId));
           //verify CM Version
-          if (candyMachine.version != AccountVersion.V2){
+          if (candyMachine.version != AccountVersion.V2) {
             toast({
               id: "wrong-account-version",
               title: "Wrong candy machine account version!",
@@ -103,7 +103,7 @@ const useCandyMachine = (
           return;
         }
         setCandyGuard(candyGuard);
-        if (firstRun){
+        if (firstRun) {
           setfirstRun(false)
         }
       }
@@ -171,7 +171,7 @@ export default function Home() {
         return;
       }
       setFirstRun(false);
-      
+
       const { guardReturn, ownedTokens } = await guardChecker(
         umi, candyGuard, candyMachine, solanaTime
       );
@@ -202,27 +202,118 @@ export default function Home() {
       <>
         <style jsx global>
           {`
-      body {
-          background: #3ec2d1; 
-       }
-   `}
+          body {
+            background: #3ec2d1; /* Base background color for the sky */
+            overflow: hidden; /* Prevent scrollbars */
+            position: relative;
+          }
+
+          @keyframes sway {
+            0%,
+            100% {
+              transform: rotate(0deg); /* Neutral position */
+            }
+            50% {
+              transform: rotate(10deg); /* Sway to one side */
+            }
+          }
+            @keyframes sway2 {
+            0%,
+            100% {
+              transform: rotate(0deg); /* Neutral position */
+            }
+            50% {
+              transform: rotate(-15deg); /* Sway to one side */
+            }
+              
+          }
+            @keyframes sway3 {
+            0%,
+            100% {
+              transform: rotate(0deg); /* Neutral position */
+            }
+            50% {
+              transform: rotate(-15deg); /* Sway to one side */
+            }
+              
+          }
+
+          .palm-tree {
+            position: relative; /* right */
+            bottom: -10%; /* Push it slightly below the viewport */
+            left: 55%; /* Adjust horizontal position */
+            width: 50%; /* Adjust size of the tree */
+            animation: sway 6s ease-in-out infinite; /* Smooth, infinite swaying */
+            transform-origin: bottom center; /* Sway from the base of the tree */
+            z-index: -1; /* Move behind other content */
+          }
+            .palm-tree:nth-child(2) { /* left */
+            animation: sway2 5s ease-in-out infinite; /* Smooth, infinite swaying */
+            position: absolute;
+            left: 5%; /* Second tree on the right */
+            bottom: 30%; /* Position it lower than the first tree */
+            width: 40%; /* Slightly larger than the first tree */
+             transform-origin: bottom center; /* Sway from the base of the tree */
+          }
+          .palm-tree:nth-child(3) { /* middle */
+          
+           position: absolute;
+            bottom: 40%; /* Push it slightly below the viewport */
+            left: 20%; /* Adjust horizontal position */
+            width: 50%; /* Adjust size of the tree */
+            animation: sway 3s ease-in-out infinite; /* Smooth, infinite swaying */
+            
+            z-index: -1; /* Move behind other content */
+             
+            }
+        `}
         </style>
+        {/* Single Palm Tree */}
+        <div style={{
+          position: "absolute", // Removes the container from the document flow
+          top: 0, // Positions it at the top of the viewport
+          left: 0, // Positions it at the left of the viewport
+          width: "100%", // Matches the viewport width
+          height: "100%", // Matches the viewport height
+          pointerEvents: "none", // Ensures it doesn't block interactions
+          // Prevents any part of the trees from overflowing
+        }}>
+          <img
+            src="https://purepng.com/public/uploads/large/purepng.com-palm-treepalm-treefeather-leavedfan-leavedevergreen-leavestropical-tree-1411527071573awedv.png"
+            alt="Palm Tree"
+            className="palm-tree"
+          />
+          <img
+            src="https://purepng.com/public/uploads/large/purepng.com-palm-treepalm-treefeather-leavedfan-leavedevergreen-leavestropical-tree-1411527071573awedv.png"
+            alt="Palm Tree"
+            className="palm-tree"
+          />
+          <img
+            src="https://purepng.com/public/uploads/large/purepng.com-palm-treepalm-treefeather-leavedfan-leavedevergreen-leavestropical-tree-1411527071573awedv.png"
+            alt="Palm Tree"
+            className="palm-tree"
+          />
+        </div>
         <Card>
           <CardHeader>
-            <Flex minWidth='max-content' alignItems='center' gap='2'>
+            <Flex minWidth='max-content' alignItems='center' gap='2' justifyContent="center">
               <Box>
+
                 <Heading size='md'>{headerText}</Heading>
+                <br></br>
+                {loading ? (<></>) : (
+                  <Flex justifyContent="center" marginLeft="auto">
+                    <Box background={"teal.100"} borderRadius={"5px"} minWidth={"50px"} minHeight={"50px"} p={2} >
+                      <VStack >
+                        <Text fontSize={"sm"}>Available Coins:</Text>
+                        <Text fontWeight={"semibold"}>{Number(candyMachine?.data.itemsAvailable) - Number(candyMachine?.itemsRedeemed)}/{Number(candyMachine?.data.itemsAvailable)}</Text>
+                      </VStack>
+                    </Box>
+                  </Flex>
+                )}
+                <br></br>
               </Box>
-              {loading ? (<></>) : (
-                <Flex justifyContent="flex-end" marginLeft="auto">
-                  <Box background={"teal.100"} borderRadius={"5px"} minWidth={"50px"} minHeight={"50px"} p={2} >
-                    <VStack >
-                      <Text fontSize={"sm"}>Available Coins:</Text>
-                      <Text fontWeight={"semibold"}>{Number(candyMachine?.data.itemsAvailable) - Number(candyMachine?.itemsRedeemed)}/{Number(candyMachine?.data.itemsAvailable)}</Text>
-                    </VStack>
-                  </Box>
-                </Flex>
-              )}
+
             </Flex>
           </CardHeader>
 
@@ -238,6 +329,7 @@ export default function Home() {
                   objectFit={'cover'}
                   alt={"project Image"}
                   src={image}
+                  className={"breathe"}
                 />
               </Box>
             </Center>
