@@ -18,6 +18,25 @@
     --hover-background-rgb: 243, 244, 246;
 }
 
+html{
+  height:100%;
+}
+
+@keyframes breathe {
+  0%, 100% {
+    transform: scale(1); /* Normal size */
+  }
+  50% {
+    transform: scale(1.05); /* Slightly larger */
+  }
+}
+
+.breathe {
+  animation: breathe 3s ease-in-out infinite; /* Smooth breathing effect */
+  transition: transform 0.2s;
+}
+
+
 @media (prefers-color-scheme: dark) {
   :root {
     --accent-rgb: 3, 255, 189;
