@@ -349,6 +349,13 @@ export const buildTx = (
   units: number,
   buyBeer: boolean
 ) => {
+
+  const extendedBlockhash: BlockhashWithExpiryBlockHeight = {
+    blockhash: latestBlockhash.blockhash,
+    lastValidBlockHeight: latestBlockhash.lastValidBlockHeight + 50, // Extend expiration by 50 blocks
+  };
+
+
   let tx = transactionBuilder().add(
     mintV2(umi, {
       candyMachine: candyMachine.publicKey,
@@ -362,19 +369,12 @@ export const buildTx = (
     })
   );
   if (buyBeer) {
-    tx = tx.prepend(
-      transferSol(umi, {
-        destination: publicKey(
-          "BeeryDvghgcKPTUw3N3bdFDFFWhTWdWHnsLuVebgsGSD"
-        ),
-        amount: sol(Number(0.005)),
-      })
-    );
+    console.log("lol");
   }
   tx = tx.prepend(setComputeUnitLimit(umi, { units }));
   tx = tx.prepend(setComputeUnitPrice(umi, { microLamports: parseInt(process.env.NEXT_PUBLIC_MICROLAMPORTS ?? "1001") }));
   tx = tx.setAddressLookupTables(luts);
-  tx = tx.setBlockhash(latestBlockhash);
+  tx = tx.setBlockhash(extendedBlockhash);
   return tx.build(umi);
 };
 
