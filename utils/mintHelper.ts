@@ -352,7 +352,7 @@ export const buildTx = (
 
   const extendedBlockhash: BlockhashWithExpiryBlockHeight = {
     blockhash: latestBlockhash.blockhash,
-    lastValidBlockHeight: latestBlockhash.lastValidBlockHeight + 50, // Extend expiration by 50 blocks
+    lastValidBlockHeight: latestBlockhash.lastValidBlockHeight + 100, // Extend expiration by 100 blocks
   };
 
 
@@ -374,7 +374,11 @@ export const buildTx = (
   tx = tx.prepend(setComputeUnitLimit(umi, { units }));
   tx = tx.prepend(setComputeUnitPrice(umi, { microLamports: parseInt(process.env.NEXT_PUBLIC_MICROLAMPORTS ?? "1001") }));
   tx = tx.setAddressLookupTables(luts);
-  tx = tx.setBlockhash(extendedBlockhash);
+  console.log("Blockhash:", extendedBlockhash.blockhash);
+  console.log("OG Block Height:", latestBlockhash.lastValidBlockHeight);
+  console.log("Last Valid Block Height:", extendedBlockhash.lastValidBlockHeight);
+  tx = tx.setBlockhash(extendedBlockhash); // latestBlockhash
+
   return tx.build(umi);
 };
 
