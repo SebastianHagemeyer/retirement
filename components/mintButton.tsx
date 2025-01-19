@@ -234,7 +234,8 @@ const mintClick = async (
         requiredCu,
         buyBeer
       );
-      console.log(transaction)
+      console.log(transaction);
+      //console.log(process.env.NEXT_PUBLIC_RPC)
       mintTxs.push(transaction);
     }
     if (!mintTxs.length) {
