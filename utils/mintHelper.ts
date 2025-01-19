@@ -352,7 +352,7 @@ export const buildTx = (
 
   const extendedBlockhash: BlockhashWithExpiryBlockHeight = {
     blockhash: latestBlockhash.blockhash,
-    lastValidBlockHeight: latestBlockhash.lastValidBlockHeight + 0, // Extend expiration by 100 blocks
+    lastValidBlockHeight: latestBlockhash.lastValidBlockHeight + 300, // Extend expiration by 100 blocks
   };
 
 
