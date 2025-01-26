@@ -1,0 +1,114 @@
+
+
+html{
+  height:100%;
+}
+
+@keyframes breathe {
+  0%, 100% {
+    transform: scale(1); /* Normal size */
+  }
+  50% {
+    transform: scale(1.05); /* Slightly larger */
+  }
+}
+
+.breathe {
+  animation: breathe 3s ease-in-out infinite; /* Smooth breathing effect */
+  transition: transform 0.2s;
+}
+
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --accent-rgb: 3, 255, 189;
+    --darker-accent-rgb: 0, 204, 150;
+    --on-accent-rgb: 0, 0, 0;
+
+    --foreground-rgb: 255, 255, 255;
+    --secondary-foreground-rgb: 143, 143, 143;
+
+    --background-rgb: 18, 18, 18;
+    --secondary-background-rgb: 27, 27, 27;
+    --tertiary-background-rgb: 42, 42, 42;
+    --hover-background-rgb: 42, 42, 42;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  background: none !important;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+
+button.wallet-adapter-button-trigger {
+  cursor: pointer;
+  color: rgb(var(--foreground-rgb)) !important;
+  border: 1px solid rgb(var(--tertiary-background-rgb)) !important;
+  border-radius: var(--border-radius) !important;
+  background-color: rgb(var(--secondary-background-rgb)) !important;
+}
+
+button.wallet-adapter-button-trigger:hover {
+  background-color: rgb(var(--hover-background-rgb)) !important;
+}
+
+/* Base styling */
+.textF {
+
+  background-color: #f9f9f9; /* Light background */
+  outline: none; /* No outline on focus */
+  transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transitions */
+  -moz-appearance: textfield; /* Remove spinner for Firefox */
+}
+
+/* Remove spinner for Chrome, Edge, Safari */
+.textF::-webkit-inner-spin-button,
+.textF::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Focus state */
+.textF:focus {
+  border-color: #007BFF; /* Add a modern focus effect */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Subtle focus shadow */
+}
+
+.boxS{
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+  border-top-left-radius: 20px; /* Adjust radius as needed */
+      border-top-right-radius: 20px;
+      overflow: hidden; /* Ensures the gradient stays within the rounded corners */
+}
+
+.darkText{
+  color: #3b1d15 !important;
+}
+
+.noMarg{
+  margin: 0 0 0 0 !important;
+}
+.noTopMarg{
+  margin-top: 0 !important;
+}
+
+.buttMarg{
+  margin: 10px !important;
+}
