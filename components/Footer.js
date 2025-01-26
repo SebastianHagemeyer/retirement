@@ -23,7 +23,7 @@ const Footer = () => {
                     alt="Nerko"
                   />
                 </a>
-                <p className="uk-margin-medium@m">
+                <p className="uk-margin-medium@m dark:uk-text-gray-10">
                   DISCLAIMER: <b>$RETIREMENT</b> is a meme coin with no intrinsic value or expectation of financial
                   return. Rich talk, bold claims, and &quot;moon missions&quot; are not financial advice <b>(NFA)</b>. Always Do Your
                   Own Research <b>(DYOR)</b> before making any investment decisions. Crypto is volatile, and while we may
@@ -38,7 +38,7 @@ const Footer = () => {
                   </li>
                   <li>
                     <a href="https://t.me/TheRetirementCoinCTO">
-                      <i className="uk-icon-medium fab fa-telegram-plane"></i>
+                      <i className="uk-icon uk-icon-medium fab fa-telegram-plane"></i>
                     </a>
                   </li>
                 </ul>
@@ -85,7 +85,7 @@ const Footer = () => {
           </div>
           <div className="uk-panel uk-text-small uk-margin-medium-top uk-margin-2xlarge-top@m">
             <div className="uk-grid uk-child-width-auto@m uk-flex-between" data-uk-grid>
-              <div className="uk-flex-first@m">
+              <div className="uk-flex-first@m dark:uk-text-gray-10">
                 <p>© 2024 Retirement. All rights reserved.</p>
               </div>
             </div>

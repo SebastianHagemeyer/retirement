@@ -7,7 +7,7 @@ import MobileMenu from "./MobileMenu";
 const Layout = ({ children }) => {
   return (
     <>
-    
+
       <Head>
         <title>Retirement</title>
         <meta name="description" content="Retirement Coin Token" />
@@ -16,10 +16,10 @@ const Layout = ({ children }) => {
         <meta name="theme-color" content="#741ff5" />
       </Head>
 
-    
 
 
-      
+
+
 
 
 
@@ -28,11 +28,11 @@ const Layout = ({ children }) => {
       <div className="darkmode-trigger uk-position-bottom-right uk-position-small uk-position-fixed uk-box-shadow-large uk-radius-circle"
         data-darkmode-toggle="">
         <label className="switch">
-            <span className="sr-only">Dark mode toggle</span>
-            <input type="checkbox"/>
-            <span className="slider"></span>
+          <span className="sr-only">Dark mode toggle</span>
+          <input type="checkbox"  onChange={(e) => console.log(`Dark mode toggled: ${e.target.checked}`)}/>
+          <span className="slider"></span>
         </label>
-    </div>
+      </div>
 
 
 

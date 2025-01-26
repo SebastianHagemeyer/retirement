@@ -19,6 +19,7 @@ import { image, headerText } from "../settings";
 import { useSolanaTime } from "@/utils/SolanaTimeContext";
 import clsx from 'clsx';
 import Layout from "../components/Layout";
+import { ChakraProvider, extendTheme, ColorModeScript } from '@chakra-ui/react';
 
 const WalletMultiButtonDynamic = dynamic(
   async () =>
@@ -213,16 +214,16 @@ export default function Home() {
           <CardHeader>
             <Flex minWidth='max-content' alignItems='center' gap='2' justifyContent="center" >
               <Box>
-               
-                <Heading size='md' className = "darkText">{headerText}</Heading>
-               
+
+                <Heading size='md' className="darkText">{headerText}</Heading>
+
                 <br></br>
                 {loading ? (<></>) : (
                   <Flex justifyContent="center" marginLeft="auto">
                     <Box background={"teal.100"} borderRadius={"5px"} minWidth={"50px"} minHeight={"50px"} p={2} >
                       <VStack >
-                        <Text fontSize={"sm"} className = "darkText noMarg">Available Coins:</Text>
-                        <Text fontWeight={"semibold"} className = "darkText noTopMarg">{Number(candyMachine?.data.itemsAvailable) - Number(candyMachine?.itemsRedeemed)}/{Number(candyMachine?.data.itemsAvailable)}</Text>
+                        <Text fontSize={"sm"} className="darkText noMarg">Available Coins:</Text>
+                        <Text fontWeight={"semibold"} className="darkText noTopMarg">{Number(candyMachine?.data.itemsAvailable) - Number(candyMachine?.itemsRedeemed)}/{Number(candyMachine?.data.itemsAvailable)}</Text>
                       </VStack>
                     </Box>
                   </Flex>
@@ -295,16 +296,19 @@ export default function Home() {
           (<></>)
         }
 
-        <Modal isOpen={isShowNftOpen} onClose={onShowNftClose}>
-          <ModalOverlay />
-          <ModalContent>
-            <ModalHeader>Your minted NFT:</ModalHeader>
-            <ModalCloseButton />
-            <ModalBody>
-              <ShowNft nfts={mintsCreated} />
-            </ModalBody>
-          </ModalContent>
-        </Modal>
+        <ChakraProvider >
+          <Modal isOpen={isShowNftOpen} onClose={onShowNftClose} >
+            <ModalOverlay />
+            <ModalContent >
+              <ModalHeader >Your minted NFT:</ModalHeader>
+              <ModalCloseButton />
+              <ModalBody >
+                <ShowNft nfts={mintsCreated} />
+              </ModalBody >
+            </ModalContent>
+          </Modal>
+        </ChakraProvider>
+
       </>
     );
   };
@@ -312,7 +316,7 @@ export default function Home() {
   return (
     <Layout>
 
-<div
+      <div
         id="uni_hero"
         className="uni-hero uk-section-2xlarge uk-section-xlarge@m uk-padding-remove-bottom@m uk-panel"
       >
@@ -364,23 +368,23 @@ export default function Home() {
                 >
                   <div className="centerText">
 
-                  <div className={clsx(styles.wallet, "uk-button", "uk-button-large@m", "uk-button-gradient", "uk-margin-small-top", "uk-margin-bottom")} >
-              <WalletMultiButtonDynamic />
+                    <div className={clsx(styles.wallet, "uk-button", "uk-button-large@m", "uk-button-gradient", "uk-margin-small-top", "uk-margin-bottom")} >
+                      <WalletMultiButtonDynamic />
 
-            </div>
+                    </div>
 
-            <div className="boxS">
-            <div className={styles.center}>
-              <PageContent key="content" />
-            </div>
-            </div>
-                    
-                    
+                    <div className="boxS">
+                      <div className={styles.center}>
+                        <PageContent key="content" />
+                      </div>
+                    </div>
+
+
 
                   </div>
-                 
+
                 </div>
-                
+
               </div>
             </div>
           </div>

@@ -581,9 +581,12 @@ export function ButtonList({
         </Flex>
       </HStack>
       <SimpleGrid columns={2} spacing={5}>
-        <Text pt="2" fontSize="sm">
-          {buttonGuard.mintText}
+        <Text pt="2" fontSize="sm" className = "dark:uk-text-gray-10">
+          {buttonGuard.mintText}<Text pt="2" fontSize="0.7em" className = "dark:uk-text-gray-10">
+          {"+0.02 fees"}
         </Text>
+        </Text>
+        
         <VStack>
 
 
@@ -600,7 +603,7 @@ export function ButtonList({
               }
             >
               <NumberInputField className="uk-input uk-form-width-medium textF" />
-              <NumberInputStepper>
+              <NumberInputStepper className="dark:uk-text-gray-10">
                 <NumberIncrementStepper />
                 <NumberDecrementStepper />
               </NumberInputStepper>

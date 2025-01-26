@@ -17,6 +17,9 @@ import { image, headerText } from 'settings'
 import { SolanaTimeProvider } from "@/utils/SolanaTimeContext";
 
 
+import { useEffect } from "react";
+import { useRouter } from "next/router";
+
 
 import "../public/assets/css/theme/main.min.css"; // Global styles
 import "../public/assets/css/fa.min.css"; // Global styles
@@ -27,8 +30,36 @@ import Script from "next/script"; // For efficient script handling
 
 
 export default function App({ Component, pageProps }: AppProps) {
+  const router = useRouter();
 
+  useEffect(() => {
+    console.log("USE EFFECT")
+    // Schema toggle logic
+    const toggleSchema = () => {
+      const queryString = router.asPath.split("?")[1];
+      const urlParams = new URLSearchParams(queryString);
+      const getSchema = urlParams.get("schema");
 
+      if (getSchema === "dark") { // ?schema=dark lol
+        document.documentElement.classList.add("uk-dark");
+        localStorage.setItem("darkMode", "1");
+      } else if (getSchema === "light") {
+        document.documentElement.classList.remove("uk-dark");
+        localStorage.setItem("darkMode", "0");
+      } else {
+        // Apply previously stored schema
+        const storedSchema = localStorage.getItem("darkMode");
+        if (storedSchema === "1") {
+          document.documentElement.classList.add("uk-dark");
+        } else {
+          document.documentElement.classList.remove("uk-dark");
+        }
+      }
+    };
+
+    // Run on initial page load
+    toggleSchema();
+  });
 
 
   let network = WalletAdapterNetwork.Devnet;
@@ -63,23 +94,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <Script src="/assets/js/anime-helper.js" strategy="lazyOnload" />
       <Script src="/assets/js/anime-helper-defined-timelines.js" strategy="lazyOnload" />
 
-       {/* Dark/Light Schema Toggle Logic */}
-       <Script id="schema-toggle" strategy="beforeInteractive">
-        {`
-          const queryString = window.location.search;
-          const urlParams = new URLSearchParams(queryString);
-          const getSchema = urlParams.get("schema");
-
-          if (getSchema === "dark") {
-            document.documentElement.classList.add("uk-dark");
-            localStorage.setItem("darkMode", "1");
-          } else if (getSchema === "light") {
-            document.documentElement.classList.remove("uk-dark");
-            localStorage.setItem("darkMode", "0");
-          }
-        `}
-      </Script>
-
+       
       <Head>
         <meta property="og:type" content="website" />
         <meta property="og:title" content={headerText} />
