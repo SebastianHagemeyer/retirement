@@ -50,10 +50,10 @@ const Footer = () => {
                 <div className="uk-width-1-2 uk-width-expand@m">
                   <ul className="uk-list">
                     <li>
-                      <a href="https://nft.retirementcoin.io/whitepaper#introduction">About</a>
+                      <a href="https://www.retirementcoin.io/whitepaper.html#introduction">About</a>
                     </li>
                     <li>
-                      <a href="https://nft.retirementcoin.io/whitepaper#roadmap">Roadmap</a>
+                      <a href="https://www.retirementcoin.io/whitepaper.html/whitepaper#roadmap">Roadmap</a>
                     </li>
                     <li>
                       <b>
@@ -65,10 +65,10 @@ const Footer = () => {
                 <div className="uk-width-1-2 uk-width-expand@m">
                   <ul className="uk-list">
                     <li>
-                      <a href="https://nft.retirementcoin.io/whitepaper#tokenomics">How it works!</a>
+                      <a href="https://www.retirementcoin.io/whitepaper.html#tokenomics">How it works!</a>
                     </li>
                     <li>
-                      <a href="https://nft.retirementcoin.io/community">Community</a>
+                      <a href="https://www.retirementcoin.io/community.html">Community</a>
                     </li>
                     <li>
                       <a
