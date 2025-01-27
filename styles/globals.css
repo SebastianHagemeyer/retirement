@@ -16,6 +16,10 @@ html{
 .breathe {
   animation: breathe 3s ease-in-out infinite; /* Smooth breathing effect */
   transition: transform 0.2s;
+
+  
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+  border-radius: 50%
 }
 
 
@@ -77,6 +81,8 @@ button.wallet-adapter-button-trigger:hover {
   transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transitions */
   -moz-appearance: textfield; /* Remove spinner for Firefox */
 }
+
+
 
 /* Remove spinner for Chrome, Edge, Safari */
 .textF::-webkit-inner-spin-button,

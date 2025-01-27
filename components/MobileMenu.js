@@ -74,7 +74,7 @@ const MobileMenu = () => {
                   className=" uk-button uk-button-small uk-button-icon uk-button-default uk-button-outline uk-radius-circle"
                   type="button"
                 >
-                  <i class="material-icons">arrow_back</i>
+                  <i className="material-icons">arrow_back</i>
                 </button>
               </div>
               <div>

@@ -369,6 +369,7 @@ export default function Home() {
                       <WalletMultiButtonDynamic />
 
                     </div>
+                    <p className= "dark:uk-text-gray-10"> <i> Own a masterpiece. Shape the future. Retirement Coin NFTs combine timeless art with the power of governance. </i></p>
 
                     <div className="boxS">
                       <div className={styles.center}>

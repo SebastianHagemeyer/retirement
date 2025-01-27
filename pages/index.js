@@ -66,7 +66,11 @@ const Home = () => {
                   style={{ height: "100vh" }}
                 >
                   <div className="centerText">
+                  <div className="uk-button uk-button-large@m uk-button-gradient uk-margin-small-top" >
+                      <WalletMultiButton />
+                    </div>
                     <h1>Welcome to the coin dashboard</h1>
+                    
                     
                     <button
                       className="uk-button uk-button-large@m uk-button-gradient buttMarg"
@@ -80,6 +84,15 @@ const Home = () => {
                     >
                       Mint
                     </button>
+
+                    <img ></img>
+
+                    {wallet.connected && (
+                      <>
+                        <p style={{ wordBreak: 'break-word'}}>Connected wallet: {wallet.publicKey.toString()}</p>
+                        
+                      </>
+                    )}
 
                   </div>
                  

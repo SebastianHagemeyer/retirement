@@ -96,10 +96,12 @@ const Home = () => {
                       }}
                     >
                       {nfts.map((nft, index) => (
-                        <div
+                        <a key={index} href= {nft.image}>
+                          <div
                           key={index}
                           style={{ border: "1px solid #ccc", padding: "10px" }}
                         >
+                          
                           <img
                             src={nft.image}
                             alt={nft.name}
@@ -107,6 +109,7 @@ const Home = () => {
                           />
                           <p>{nft.name}</p>
                         </div>
+                        </a>
                       ))}
                     </div>
 
