@@ -213,7 +213,7 @@ export default function Home() {
         <Card>
           <CardHeader>
             <Flex minWidth='max-content' alignItems='center' gap='2' justifyContent="center" >
-              <Box>
+              <Box maxWidth='60vw'>
 
                 <Heading size='md' className="darkText">{headerText}</Heading>
 
@@ -277,6 +277,7 @@ export default function Home() {
         </Card >
         {umi.identity.publicKey === candyMachine?.authority ? (
           <>
+
             <Center>
               <Button backgroundColor={"red.200"} marginTop={"10"} onClick={onInitializerOpen}>Initialize Everything!</Button>
             </Center>
@@ -346,11 +347,7 @@ export default function Home() {
           data-uk-height-viewport=""
           style={{ minHeight: "calc(100vh)" }}
         >
-          <div
-            className="uk-position-cover uk-background-cover dark:uk-hidden"
-            data-src="/assets/images/gradient-02.png"
-            data-uk-img=""
-          ></div>
+          
         </div>
 
         <div className="uk-panel uk-position-z-index">
@@ -364,7 +361,7 @@ export default function Home() {
               >
                 <div
                   className="uk-width-1-1 uk-flex uk-flex-center uk-flex-middle uk-first-column"
-                  style={{ height: "100vh" }}
+                  style={{ height: "auto;" }}
                 >
                   <div className="centerText">
 

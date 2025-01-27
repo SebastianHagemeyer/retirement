@@ -77,7 +77,7 @@ const Header = () => {
                     </ul>
                   </div>
                   <div className="uk-navbar-item uk-hidden@m">
-                    <a href="#uni_mobile_menu" data-uk-toggle>
+                    <a id="mobileMenuToggle" href="#uni_mobile_menu" role="button">
                       <span className="uk-icon uk-icon-medium material-icons">
                         menu
                       </span>

@@ -49,11 +49,7 @@ const Home = () => {
           data-uk-height-viewport=""
           style={{ minHeight: "calc(100vh)" }}
         >
-          <div
-            className="uk-position-cover uk-background-cover dark:uk-hidden"
-            data-src="/assets/images/gradient-02.png"
-            data-uk-img=""
-          ></div>
+          
         </div>
 
         <div className="uk-panel uk-position-z-index">

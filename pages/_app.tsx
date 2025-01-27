@@ -32,35 +32,6 @@ import Script from "next/script"; // For efficient script handling
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
 
-  useEffect(() => {
-    console.log("USE EFFECT")
-    // Schema toggle logic
-    const toggleSchema = () => {
-      const queryString = router.asPath.split("?")[1];
-      const urlParams = new URLSearchParams(queryString);
-      const getSchema = urlParams.get("schema");
-
-      if (getSchema === "dark") { // ?schema=dark lol
-        document.documentElement.classList.add("uk-dark");
-        localStorage.setItem("darkMode", "1");
-      } else if (getSchema === "light") {
-        document.documentElement.classList.remove("uk-dark");
-        localStorage.setItem("darkMode", "0");
-      } else {
-        // Apply previously stored schema
-        const storedSchema = localStorage.getItem("darkMode");
-        if (storedSchema === "1") {
-          document.documentElement.classList.add("uk-dark");
-        } else {
-          document.documentElement.classList.remove("uk-dark");
-        }
-      }
-    };
-
-    // Run on initial page load
-    toggleSchema();
-  });
-
 
   let network = WalletAdapterNetwork.Devnet;
   if (process.env.NEXT_PUBLIC_ENVIRONMENT === "mainnet-beta" || process.env.NEXT_PUBLIC_ENVIRONMENT === "mainnet") {
@@ -78,8 +49,8 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
     {/* Critical Scripts */}
-    <Script src="/assets/js/uikit.min.js" strategy="beforeInteractive" />
-      <Script src="/assets/js/uikit-components.js" strategy="beforeInteractive" />
+    {/* <Script src="/assets/js/uikit.min.js" strategy="beforeInteractive" />
+      <Script src="/assets/js/uikit-components.js" strategy="beforeInteractive" /> */}
       <Script src="/assets/js/app-head.js" strategy="beforeInteractive" />
 
       {/* Non-Critical Scripts */}
@@ -88,12 +59,15 @@ export default function App({ Component, pageProps }: AppProps) {
       <Script src="/assets/js/feather.min.js" strategy="lazyOnload" />
       <Script src="/assets/js/typed.min.js" strategy="lazyOnload" />
       <Script src="/assets/js/anime.min.js" strategy="lazyOnload" />
-      <Script src="/assets/js/app.js" strategy="lazyOnload" />
       <Script src="/assets/js/swiper-helper.js" strategy="lazyOnload" />
       <Script src="/assets/js/typed-helper.js" strategy="lazyOnload" />
       <Script src="/assets/js/anime-helper.js" strategy="lazyOnload" />
       <Script src="/assets/js/anime-helper-defined-timelines.js" strategy="lazyOnload" />
 
+    {/* Reloadable script */}
+    <div id="dynamic-script-container">
+        {/*<Script src="/assets/js/app.js" strategy="lazyOnload" id="app-js-script" />*/}
+      </div>
        
       <Head>
         <meta property="og:type" content="website" />

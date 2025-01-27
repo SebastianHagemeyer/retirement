@@ -47,11 +47,7 @@ const Home = () => {
           data-uk-height-viewport=""
           style={{ minHeight: "calc(100vh)" }}
         >
-          <div
-            className="uk-position-cover uk-background-cover dark:uk-hidden"
-            data-src="/assets/images/gradient-02.png"
-            data-uk-img=""
-          ></div>
+         
         </div>
 
         <div className="uk-panel uk-position-z-index">
@@ -65,7 +61,7 @@ const Home = () => {
               >
                 <div
                   className="uk-width-1-1 uk-flex uk-flex-center uk-flex-middle uk-first-column"
-                  style={{ height: "100vh" }}
+                  style={{ height: "auto;" }}
                 >
                   <div className="centerText">
                     <h1>Welcome to the coin viewer</h1>
@@ -79,7 +75,7 @@ const Home = () => {
 
                     {wallet.connected && (
                       <>
-                        <p>Connected wallet: {wallet.publicKey.toString()}</p>
+                        <p style={{ wordBreak: 'break-word'}}>Connected wallet: {wallet.publicKey.toString()}</p>
                         <button className="uk-button uk-button-large@m uk-button-gradient uk-margin-small-top"
                           onClick={() => fetchNFTs(wallet.publicKey.toString())}
                           disabled={loading}

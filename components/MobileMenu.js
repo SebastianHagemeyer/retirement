@@ -1,8 +1,59 @@
 import React from "react";
-
+import { useEffect } from "react";
 import Link from "next/link";
 
+
+
+//import UIkit from "uikit";
+
 const MobileMenu = () => {
+
+  useEffect(() => {
+    // Get references to the buttons
+    const menuButton = document.getElementById("mobileMenuToggle");
+    const closeButton = document.getElementById("closeButton");
+
+    // Define the event listener functions
+    const openMenu = () => {
+      const offcanvas = UIkit.offcanvas("#uni_mobile_menu");
+      if (offcanvas) {
+        offcanvas.show(); // Open the menu
+      } else {
+        console.error("Offcanvas element not found!");
+      }
+    };
+
+    const closeMenu = () => {
+      const offcanvas = UIkit.offcanvas("#uni_mobile_menu");
+      if (offcanvas) {
+        offcanvas.hide(); // Close the menu
+      } else {
+        console.error("Offcanvas element not found!");
+      }
+    };
+
+    // Add event listeners if buttons exist
+    if (menuButton) {
+      menuButton.addEventListener("click", openMenu);
+    }
+
+    if (closeButton) {
+      closeButton.addEventListener("click", closeMenu);
+    }
+
+    // Clean up event listeners on component unmount
+    return () => {
+      if (menuButton) {
+        menuButton.removeEventListener("click", openMenu);
+      }
+      if (closeButton) {
+        closeButton.removeEventListener("click", closeMenu);
+      }
+    };
+  }, []); // Empty dependency array to ensure this runs only on mount/unmount
+
+
+
   return (
     <div
       id="uni_mobile_menu"
@@ -18,12 +69,12 @@ const MobileMenu = () => {
             {/* Header */}
             <header className="uk-card uk-card-2xsmall uk-flex-middle uk-flex-between">
               <div className="uk-flex-1">
-                <button
+                <button id="closeButton"
                   aria-label="Close Menu"
-                  className="uk-offcanvas-close uk-button uk-button-small uk-button-icon uk-button-default uk-button-outline uk-radius-circle"
+                  className=" uk-button uk-button-small uk-button-icon uk-button-default uk-button-outline uk-radius-circle"
                   type="button"
                 >
-                  <i className="uk-icon-small" data-feather="arrow-left"></i>
+                  <i class="material-icons">arrow_back</i>
                 </button>
               </div>
               <div>
@@ -38,7 +89,6 @@ const MobileMenu = () => {
               <div className="uk-panel">
                 <ul className="uk-nav uk-nav-default">
                   <li className="uk-nav-header">Homepages</li>
-                  
                   <li>
                       <Link href="/">Home</Link>
                     </li>

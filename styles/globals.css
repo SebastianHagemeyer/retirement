@@ -96,6 +96,8 @@ button.wallet-adapter-button-trigger:hover {
   border-top-left-radius: 20px; /* Adjust radius as needed */
       border-top-right-radius: 20px;
       overflow: hidden; /* Ensures the gradient stays within the rounded corners */
+
+      max-width: 100vw;
 }
 
 .chakra-accordion__button{
