@@ -123,17 +123,17 @@ const Home = () => {
                     </button>
 
                     <div class="uk-container uk-margin-large-top uk-padding">
-                      <div className="uk-card uk-card-default uk-card-body uk-border-rounded uk-box-shadow-medium">
+                      <div className="uk-card uk-card-default uk-card-body uk-border-rounded uk-box-shadow-medium dark:uk-background-white-10">
                         <div className="uk-grid-small uk-child-width-1-2@s uk-child-width-1-3@m uk-text-center" data-uk-grid>
 
                           <div >
                             <div className="uk-text-lead uk-text-bold dark:uk-text-gray-10">Balance</div>
-                            <div className="uk-text-large uk-text-success balance">{tokenBalance !== null ? formatBalance(tokenBalance) : "?"}</div>
+                            <div className="uk-text-large uk-text-success dark:uk-text-gray-10 balance">{tokenBalance !== null ? formatBalance(tokenBalance) : "?"}</div>
                           </div>
 
                           <div >
                             <div className="uk-text-lead uk-text-bold dark:uk-text-gray-10">Balance USD</div>
-                            <div className="uk-text-large uk-text-success balance">?</div>
+                            <div className="uk-text-large uk-text-success dark:uk-text-gray-10 balance">?</div>
                           </div>
 
 
@@ -143,29 +143,29 @@ const Home = () => {
                     </div>
 
                     <div class="uk-container uk-margin-large-top uk-padding">
-                      <div className="uk-card uk-card-default uk-card-body uk-border-rounded uk-box-shadow-medium">
+                      <div className="uk-card uk-card-default uk-card-body uk-border-rounded uk-box-shadow-medium dark:uk-background-white-10">
                       <div className="uk-grid-small uk-child-width-1-2@s uk-child-width-1-3@m uk-text-center" data-uk-grid>
                         <div>
                           <div className="uk-text-lead uk-text-bold dark:uk-text-gray-10">Market Cap</div>
-                          <div className="uk-text-large uk-text-success market-cap">?</div>
+                          <div className="uk-text-large  uk-text-success dark:uk-text-gray-10 market-cap">?</div>
                         </div>
 
 
                         <div>
                           <div className="uk-text-lead uk-text-bold dark:uk-text-gray-10">24H Volume</div>
-                          <div className="uk-text-large uk-text-success volume">?</div>
+                          <div className="uk-text-large uk-text-success dark:uk-text-gray-10 volume">?</div>
                         </div>
 
 
                         <div>
                           <div className="uk-text-lead uk-text-bold dark:uk-text-gray-10" >Holders</div>
-                          <div className="uk-text-large uk-text-success holders">?</div>
+                          <div className="uk-text-large uk-text-success dark:uk-text-gray-10 holders">?</div>
                         </div>
 
 
                         <div>
                           <div className="uk-text-lead uk-text-bold dark:uk-text-gray-10">Liquidity</div>
-                          <div className="uk-text-large uk-text-success liquidity">?</div>
+                          <div className="uk-text-large uk-text-success dark:uk-text-gray-10 liquidity">?</div>
                         </div>
                       </div>
                       </div>
