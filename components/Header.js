@@ -1,8 +1,11 @@
 import React from "react";
 //import MobileMenu from "./MobileMenu";
 import Link from "next/link";
+import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 
 const Header = () => {
+
+
   return (
     <>
 
@@ -18,6 +21,7 @@ const Header = () => {
             >
               <div className="uk-navbar-top">
                 {/* Left Logo */}
+
                 <div className="uk-navbar-left uk-flex-1@m">
                   <a
                     className="uk-logo uk-navbar-item uk-h4 uk-h3@m uk-margin-remove"
@@ -38,7 +42,13 @@ const Header = () => {
                       loading="lazy"
                     />
                   </a>
+
+                  <div className="uk-button uk-button-large@m uk-button-gradient" >
+                      <WalletMultiButton />
+                    </div>
+
                 </div>
+                
 
                 {/* Center Navigation */}
                 <div className="uk-navbar-center">

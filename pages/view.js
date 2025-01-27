@@ -65,9 +65,9 @@ const Home = () => {
                 >
                   <div className="centerText">
                     <h1>Welcome to the coin viewer</h1>
-                    <div className="uk-button uk-button-large@m uk-button-gradient uk-margin-small-top" >
+                    {/*<div className="uk-button uk-button-large@m uk-button-gradient uk-margin-small-top" >
                       <WalletMultiButton />
-                    </div>
+                    </div>*/}
 
 
 
@@ -76,14 +76,16 @@ const Home = () => {
                     {wallet.connected && (
                       <>
                         <p style={{ wordBreak: 'break-word'}}>Connected wallet: {wallet.publicKey.toString()}</p>
+                        
+                      </>
+                    )}
+
                         <button className="uk-button uk-button-large@m uk-button-gradient uk-margin-small-top"
                           onClick={() => fetchNFTs(wallet.publicKey.toString())}
-                          disabled={loading}
+                          disabled={!wallet.connected || loading}
                         >
                           {loading ? "Loading..." : "Refresh NFTs"}
                         </button>
-                      </>
-                    )}
 
                     {/* Display NFTs */}
                     <div
@@ -99,7 +101,7 @@ const Home = () => {
                         <a key={index} href= {nft.image}>
                           <div
                           key={index}
-                          style={{ border: "1px solid #ccc", padding: "10px" }}
+                          className="card uni-minting-item uk-card uk-card-medium uk-card-border uk-card-default uk-height-large@m uk-radius-medium uk-radius-large@m dark:uk-background-white-5"
                         >
                           
                           <img
@@ -107,7 +109,7 @@ const Home = () => {
                             alt={nft.name}
                             style={{ width: "100%", height: "auto", borderRadius: "10px" }}
                           />
-                          <p>{nft.name}</p>
+                          <p className="dark:uk-text-gray-10">{nft.name}</p>
                         </div>
                         </a>
                       ))}

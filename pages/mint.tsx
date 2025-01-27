@@ -365,10 +365,8 @@ export default function Home() {
                 >
                   <div className="centerText">
 
-                    <div className={clsx(styles.wallet, "uk-button", "uk-button-large@m", "uk-button-gradient", "uk-margin-small-top", "uk-margin-bottom")} >
-                      <WalletMultiButtonDynamic />
-
-                    </div>
+                  {/* wallet goes here WalletMultiButtonDynamic */}
+                    <br></br>
                     <p className= "dark:uk-text-gray-10"> <i> Own a masterpiece. Shape the future. Retirement Coin NFTs combine timeless art with the power of governance. </i></p>
 
                     <div className="boxS">

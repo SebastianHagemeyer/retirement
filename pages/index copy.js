@@ -32,11 +32,8 @@ const Home = () => {
           return;
         }
         
-
         const walletAddress = wallet.publicKey.toString();
-        //console.log(walletAddress)
         const balance = await getTokenBalance(walletAddress, tokenMintAddress);
-        console.log(balance)
         setTokenBalance(balance);
       } catch (error) {
         console.error("Error fetching token balance:", error);
@@ -128,7 +125,7 @@ const Home = () => {
 
                           <div >
                             <div className="uk-text-lead uk-text-bold dark:uk-text-gray-10">Balance</div>
-                            <div className="uk-text-large uk-text-success balance">{tokenBalance !== null ? formatBalance(tokenBalance) : "?"}</div>
+                            <div className="uk-text-large uk-text-success balance">{tokenBalance !== null ? formatBalance(tokenBalance) : "Loading..."}</div>
                           </div>
 
                           <div >

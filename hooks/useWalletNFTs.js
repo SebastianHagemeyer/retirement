@@ -2,8 +2,7 @@ import { useState } from "react";
 import { Connection } from "@solana/web3.js";
 import { getParsedNftAccountsByOwner } from "@nfteyez/sol-rayz";
 
-const SOLANA_MAINNET =
-  "https://mainnet.helius-rpc.com/?api-key=73809f9b-908c-4fb7-bb8c-001d4de5071c";
+const SOLANA_MAINNET = process.env.NEXT_PUBLIC_RPC;
 
 const connection = new Connection(SOLANA_MAINNET);
 

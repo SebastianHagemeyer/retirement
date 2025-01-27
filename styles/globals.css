@@ -138,3 +138,17 @@ button.wallet-adapter-button-trigger:hover {
   z-index: 9999; /* Ensure it sits above other elements */
   background-color: rgba(0, 0, 0, 0.5); /* Optional dimmed overlay */
 }
+
+.wallet-adapter-dropdown .wallet-adapter-button{
+  background: none !important;
+  border: none !important;
+}
+
+.wallet-adapter-dropdown .wallet-adapter-button:hover {
+  background: none !important;
+}
+
+.button.wallet-adapter-button-trigger{
+  background-color: none !important;
+
+}
