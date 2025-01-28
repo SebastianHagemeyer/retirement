@@ -165,7 +165,7 @@ const Home = () => {
                       Mint
                     </button>
 
-                    <div class="uk-container uk-margin-large-top uk-padding">
+                    <div className="uk-container uk-margin-large-top uk-padding">
                       <div className="uk-card uk-card-default uk-card-body uk-border-rounded uk-box-shadow-medium dark:uk-background-white-10">
                         <div className="uk-grid-small uk-child-width-1-2@s uk-child-width-1-3@m uk-text-center" data-uk-grid>
 
@@ -183,7 +183,7 @@ const Home = () => {
                       </div>
                     </div>
 
-                    <div class="uk-container uk-margin-large-top uk-padding">
+                    <div className="uk-container uk-margin-large-top uk-padding">
                       <div className="uk-card uk-card-default uk-card-body uk-border-rounded uk-box-shadow-medium dark:uk-background-white-10">
                       <div className="uk-grid-small uk-child-width-1-2@s uk-child-width-1-3@m uk-text-center" data-uk-grid>
                         <div>

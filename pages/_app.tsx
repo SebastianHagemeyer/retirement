@@ -52,7 +52,7 @@ export default function App({ Component, pageProps }: AppProps) {
   if (process.env.NEXT_PUBLIC_ENVIRONMENT === "mainnet-beta" || process.env.NEXT_PUBLIC_ENVIRONMENT === "mainnet") {
     network = WalletAdapterNetwork.Mainnet;
   }
-  let endpoint = "https://mainnet.helius-rpc.com/?api-key=73809f9b-908c-4fb7-bb8c-001d4de5071c";
+  let endpoint = "";
   if (process.env.NEXT_PUBLIC_RPC) {
     endpoint = process.env.NEXT_PUBLIC_RPC;
   }
