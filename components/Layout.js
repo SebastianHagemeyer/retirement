@@ -69,8 +69,12 @@ const Layout = ({ children }) => {
         <title>Retirement</title>
         <meta name="description" content="Retirement Coin Token" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="icon" href="/assets/images/artwork/OG_RETIREMAN.png" />
+        <link rel="icon" href="/favicon.ico" />
         <meta name="theme-color" content="#741ff5" />
+
+        <meta property="og:image" content="https://retirementcoin.io/assets/images/artwork/nftlow.PNG" />
+        <meta name="twitter:image" content="https://retirementcoin.io/assets/images/artwork/nftlow.PNG" />
+
       </Head>
 
 
