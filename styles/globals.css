@@ -152,3 +152,8 @@ button.wallet-adapter-button-trigger:hover {
   background-color: none !important;
 
 }
+
+.container {
+  max-width: 600px;
+  margin: 0 auto; /* Center horizontally */
+}

@@ -22,7 +22,10 @@ const Home = () => {
   const [volume, setVolume] = useState(null);
   const [liquidity, setLiquidity] = useState(null);
   const [holderCount, setHolderCount] = useState(null);
-  //const [tokenBalance, setTokenBalance] = useState(null);
+  const [mwBalance, setMwBalance] = useState(null);
+  const totalSupply = 998928617;
+
+  const tokenMintAddress = "HLRGoPcK1n4fmkowVyBNkVHRoiiCUL2qyneNqTUNpump"; // Replace with the actual mint address
 
 
   // Format balance for display
@@ -35,7 +38,7 @@ const Home = () => {
   // get value of bal in USD
   const getUSD = (marketCap, bal) => {
     const tokenSupply = 998928617;
-    const price = marketCap/tokenSupply;
+    const price = marketCap / totalSupply;
 
     return (price * bal)
   }
@@ -56,25 +59,31 @@ const Home = () => {
         setVolume(volume24h);
         setHolderCount(holderCount);
 
-      } catch (error){
+      } catch (error) {
         console.error("Error fetching market data", error);
       }
     }
     fetchData()
 
 
+    async function fetchmwBal() {
+      const mwBalance = await getTokenBalance("3V7UwuoyhJQ5KPsk42tYZ6LwCKEKNUHmZWi958DR3wJm", tokenMintAddress);
+      //console.log(mwBalance)
+      setMwBalance(mwBalance);
+    }
+    fetchmwBal()
 
     const fetchBalance = async (wallet) => {
 
 
 
-      const tokenMintAddress = "HLRGoPcK1n4fmkowVyBNkVHRoiiCUL2qyneNqTUNpump"; // Replace with the actual mint address
+
       try {
         if (!wallet?.publicKey) {
           console.error("Wallet not connected or public key missing.");
           return;
         }
-        
+
 
         const walletAddress = wallet.publicKey.toString();
         //console.log(walletAddress)
@@ -89,6 +98,9 @@ const Home = () => {
     if (wallet.connected) {
       fetchBalance(wallet)
     }
+
+
+
   }, [wallet.connected, wallet]);
 
   return (
@@ -143,6 +155,7 @@ const Home = () => {
                     {/*<div className="uk-button uk-button-large@m uk-button-gradient uk-margin-small-top" >
                       <WalletMultiButton />
                     </div>*/}
+                    <br></br>
                     <h1>Welcome to the coin dashboard </h1> {/*<h3 style={{ marginTop: "0" }}>(WIP)</h3> */}
 
                     {wallet.connected && (
@@ -164,8 +177,8 @@ const Home = () => {
                     >
                       Mint
                     </button>
-
-                    <div className="uk-container uk-margin-large-top uk-padding">
+                    <h1>Your Retirement Coin</h1>
+                    <div className="uk-container uk-padding">
                       <div className="uk-card uk-card-default uk-card-body uk-border-rounded uk-box-shadow-medium dark:uk-background-white-10">
                         <div className="uk-grid-small uk-child-width-1-2@s uk-child-width-1-3@m uk-text-center" data-uk-grid>
 
@@ -176,39 +189,83 @@ const Home = () => {
 
                           <div >
                             <div className="uk-text-lead uk-text-bold dark:uk-text-gray-10">Balance USD</div>
-                            <div className="uk-text-large uk-text-success dark:uk-text-gray-10 balance">{((tokenBalance !== null) && (marketCap !== null)) ? "$"+ formatBalance(getUSD(marketCap, tokenBalance)) : "?" }</div>
+                            <div className="uk-text-large uk-text-success dark:uk-text-gray-10 balance">{((tokenBalance !== null) && (marketCap !== null)) ? "$" + formatBalance(getUSD(marketCap, tokenBalance)) : "?"}</div>
+                          </div>
+
+
+                          <div >
+                            <div className="uk-text-lead uk-text-bold dark:uk-text-gray-10">% of supply</div>
+                            <div className="uk-text-large uk-text-success dark:uk-text-gray-10 balance">{((tokenBalance !== null)) ? ((tokenBalance / totalSupply) * 100).toFixed(2) + "%" : "?"}</div>
                           </div>
 
                         </div>
                       </div>
                     </div>
 
-                    <div className="uk-container uk-margin-large-top uk-padding">
+                    <h1>Marketing wallet</h1>
+
+                    <div className="uk-container uk-padding">
                       <div className="uk-card uk-card-default uk-card-body uk-border-rounded uk-box-shadow-medium dark:uk-background-white-10">
-                      <div className="uk-grid-small uk-child-width-1-2@s uk-child-width-1-3@m uk-text-center" data-uk-grid>
-                        <div>
-                          <div className="uk-text-lead uk-text-bold dark:uk-text-gray-10">Market Cap</div>
-                          <div className="uk-text-large  uk-text-success dark:uk-text-gray-10 market-cap">{marketCap !== null ? "$"+ marketCap.toLocaleString("en-US") : "?"}</div>
+                        
+                        <div className="container uk-card uk-card-default uk-card-body uk-border-rounded uk-margin-medium-bottom uk-box-shadow-medium dark:uk-background-white-10">
+                          <p className="dark:uk-text-gray-10" >Our marketing wallet holds a large amount of retirement coin, we won't dump this onto the community, we are yet to decide what to do with it.</p>
                         </div>
 
+                        <div className="uk-grid-small uk-child-width-1-2@s uk-child-width-1-3@m uk-text-center" data-uk-grid>
 
-                        <div>
-                          <div className="uk-text-lead uk-text-bold dark:uk-text-gray-10">24H Volume</div>
-                          <div className="uk-text-large uk-text-success dark:uk-text-gray-10 volume">{volume !== null ? "$"+ volume.toLocaleString("en-US") : "?"}</div>
-                        </div>
+                          <div >
+                            <div className="uk-text-lead uk-text-bold dark:uk-text-gray-10">Balance</div>
+                            <div className="uk-text-large uk-text-success dark:uk-text-gray-10 balance">{mwBalance !== null ? formatBalance(mwBalance) : "?"}</div>
+                          </div>
+
+                          <div >
+                            <div className="uk-text-lead uk-text-bold dark:uk-text-gray-10">Balance USD</div>
+                            <div className="uk-text-large uk-text-success dark:uk-text-gray-10 balance">{((mwBalance !== null) && (marketCap !== null)) ? "$" + formatBalance(getUSD(marketCap, mwBalance)) : "?"}</div>
+                          </div>
 
 
-                        <div>
-                          <div className="uk-text-lead uk-text-bold dark:uk-text-gray-10" >Holders</div>
-                          <div className="uk-text-large uk-text-success dark:uk-text-gray-10 holders">{holderCount !== null ? holderCount.toLocaleString("en-US") : "?"}</div>
-                        </div>
+                          <div >
+                            <div className="uk-text-lead uk-text-bold dark:uk-text-gray-10">% of supply</div>
+                            <div className="uk-text-large uk-text-success dark:uk-text-gray-10 balance">{((mwBalance !== null)) ? ((mwBalance / totalSupply) * 100).toFixed(2) + "%" : "?"}</div>
+                          </div>
 
-
-                        <div>
-                          <div className="uk-text-lead uk-text-bold dark:uk-text-gray-10">Liquidity</div>
-                          <div className="uk-text-large uk-text-success dark:uk-text-gray-10 liquidity">{liquidity !== null ? "$"+ liquidity.toLocaleString("en-US") : "?"}</div>
                         </div>
                       </div>
+                    </div>
+
+                    <h1>Statistics</h1>
+                    <div className="uk-container uk-padding">
+                      <div className="uk-card uk-card-default uk-card-body uk-border-rounded uk-box-shadow-medium dark:uk-background-white-10">
+                        <div className="uk-grid-small uk-child-width-1-2@s uk-child-width-1-3@m uk-text-center" data-uk-grid>
+                          <div>
+                            <div className="uk-text-lead uk-text-bold dark:uk-text-gray-10">Market Cap</div>
+                            <div className="uk-text-large  uk-text-success dark:uk-text-gray-10 market-cap">{marketCap !== null ? "$" + marketCap.toLocaleString("en-US") : "?"}</div>
+                          </div>
+
+
+                          <div>
+                            <div className="uk-text-lead uk-text-bold dark:uk-text-gray-10">24H Volume</div>
+                            <div className="uk-text-large uk-text-success dark:uk-text-gray-10 volume">{volume !== null ? "$" + volume.toLocaleString("en-US") : "?"}</div>
+                          </div>
+
+
+                          <div>
+                            <div className="uk-text-lead uk-text-bold dark:uk-text-gray-10" >Holders</div>
+                            <div className="uk-text-large uk-text-success dark:uk-text-gray-10 holders">{holderCount !== null ? holderCount.toLocaleString("en-US") : "?"}</div>
+                          </div>
+
+
+                          <div>
+                            <div className="uk-text-lead uk-text-bold dark:uk-text-gray-10">Liquidity</div>
+                            <div className="uk-text-large uk-text-success dark:uk-text-gray-10 liquidity">{liquidity !== null ? "$" + liquidity.toLocaleString("en-US") : "?"}</div>
+                          </div>
+
+                          <div>
+                            <div className="uk-text-lead uk-text-bold dark:uk-text-gray-10">Total Supply</div>
+                            <div className="uk-text-large uk-text-success dark:uk-text-gray-10 liquidity">{formatBalance(totalSupply)}</div>
+                          </div>
+
+                        </div>
                       </div>
 
                     </div>

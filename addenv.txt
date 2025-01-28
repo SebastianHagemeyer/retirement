@@ -16,6 +16,7 @@ NEXT_PUBLIC_MICROLAMPORTS=50000
 
 NEXT_PUBLIC_DB_API=73809f9b
 
+
 ## SAFE NO APIKEY
 
 # Enter the Candy Machine Address below
