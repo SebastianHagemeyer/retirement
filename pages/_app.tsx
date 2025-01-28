@@ -29,7 +29,22 @@ import "../public/assets/css/uikit.min.css"; // UIkit styles
 import Script from "next/script"; // For efficient script handling
 
 
+
 export default function App({ Component, pageProps }: AppProps) {
+  //&& process.env.NEXT_PUBLIC_DISABLE_OVERLAY === "true"
+  /*useEffect(() => {
+    if (typeof window !== "undefined") {
+      const observer = new MutationObserver(() => {
+        const overlay = document.querySelector('[data-nextjs-dialog-overlay]'); 
+        if (overlay) overlay.remove();
+      });
+
+      observer.observe(document.body, { childList: true, subtree: true });
+
+      return () => observer.disconnect(); // Cleanup
+    }
+  }, []);*/
+
   const router = useRouter();
 
 
@@ -47,9 +62,10 @@ export default function App({ Component, pageProps }: AppProps) {
     []
   );
   return (
+
     <>
-    {/* Critical Scripts */}
-    {/* <Script src="/assets/js/uikit.min.js" strategy="beforeInteractive" />
+      {/* Critical Scripts */}
+      {/* <Script src="/assets/js/uikit.min.js" strategy="beforeInteractive" />
       <Script src="/assets/js/uikit-components.js" strategy="beforeInteractive" /> */}
       <Script src="/assets/js/app-head.js" strategy="beforeInteractive" />
 
@@ -64,11 +80,11 @@ export default function App({ Component, pageProps }: AppProps) {
       <Script src="/assets/js/anime-helper.js" strategy="lazyOnload" />
       <Script src="/assets/js/anime-helper-defined-timelines.js" strategy="lazyOnload" />
 
-    {/* Reloadable script */}
-    <div id="dynamic-script-container">
+      {/* Reloadable script */}
+      <div id="dynamic-script-container">
         {/*<Script src="/assets/js/app.js" strategy="lazyOnload" id="app-js-script" />*/}
       </div>
-       
+
       <Head>
         <meta property="og:type" content="website" />
         <meta property="og:title" content={headerText} />
@@ -87,16 +103,19 @@ export default function App({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {/* <ChakraProvider>*/}
-        <WalletProvider wallets={wallets}>
-          <UmiProvider endpoint={endpoint}>
-            <WalletModalProvider>
-              <SolanaTimeProvider>
-                <Component {...pageProps} />
-              </SolanaTimeProvider>
-            </WalletModalProvider>
-          </UmiProvider>
-        </WalletProvider>
+      <WalletProvider wallets={wallets}>
+        <UmiProvider endpoint={endpoint}>
+          <WalletModalProvider>
+            <SolanaTimeProvider>
+              <Component {...pageProps} />
+            </SolanaTimeProvider>
+          </WalletModalProvider>
+        </UmiProvider>
+      </WalletProvider>
       {/* </ChakraProvider>*/}
     </>
+
   );
 }
+
+

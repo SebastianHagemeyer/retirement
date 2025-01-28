@@ -22,7 +22,7 @@ const Layout = ({ children }) => {
 
   // Sync the initial state with localStorage
   useEffect(() => {
-    console.log("POTENTIAL")
+    //console.log("POTENTIAL")
 
     const darkModeToggle = document.getElementById("darkModeToggle");
     

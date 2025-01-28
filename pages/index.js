@@ -6,6 +6,8 @@ import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import { useWallet } from "@solana/wallet-adapter-react";
 
 import { getTokenBalance } from "../utils/getTokenBalance"; // Adjust path as needed
+import { fetchDexScreenerData } from "../utils/dexScreener";
+
 
 import { useRouter } from "next/router";
 
@@ -16,6 +18,13 @@ const Home = () => {
 
   const [tokenBalance, setTokenBalance] = useState(null);
 
+  const [marketCap, setMarketCap] = useState(null);
+  const [volume, setVolume] = useState(null);
+  const [liquidity, setLiquidity] = useState(null);
+  const [holderCount, setHolderCount] = useState(null);
+  //const [tokenBalance, setTokenBalance] = useState(null);
+
+
   // Format balance for display
   const formatBalance = (value) => {
     if (value >= 1_000_000) return (value / 1_000_000).toFixed(1) + "M";
@@ -23,8 +32,42 @@ const Home = () => {
     return value.toFixed(1);
   };
 
+  // get value of bal in USD
+  const getUSD = (marketCap, bal) => {
+    const tokenSupply = 998928617;
+    const price = marketCap/tokenSupply;
+
+    return (price * bal)
+  }
+
+
   useEffect(() => {
+
+    const fetchData = async () => {
+      try {
+        const tokenAddress = "HLRGoPcK1n4fmkowVyBNkVHRoiiCUL2qyneNqTUNpump";
+        const { marketCap, volume24h, liquidity, holderCount } = await fetchDexScreenerData(tokenAddress);
+
+        const usdLiq = liquidity['usd'];
+        //console.log(usdLiq)
+
+        setLiquidity(usdLiq);
+        setMarketCap(marketCap);
+        setVolume(volume24h);
+        setHolderCount(holderCount);
+
+      } catch (error){
+        console.error("Error fetching market data", error);
+      }
+    }
+    fetchData()
+
+
+
     const fetchBalance = async (wallet) => {
+
+
+
       const tokenMintAddress = "HLRGoPcK1n4fmkowVyBNkVHRoiiCUL2qyneNqTUNpump"; // Replace with the actual mint address
       try {
         if (!wallet?.publicKey) {
@@ -100,7 +143,7 @@ const Home = () => {
                     {/*<div className="uk-button uk-button-large@m uk-button-gradient uk-margin-small-top" >
                       <WalletMultiButton />
                     </div>*/}
-                    <h1>Welcome to the coin dashboard </h1> <h3 style={{ marginTop: "0" }}>(WIP)</h3>
+                    <h1>Welcome to the coin dashboard </h1> {/*<h3 style={{ marginTop: "0" }}>(WIP)</h3> */}
 
                     {wallet.connected && (
                       <>
@@ -133,10 +176,8 @@ const Home = () => {
 
                           <div >
                             <div className="uk-text-lead uk-text-bold dark:uk-text-gray-10">Balance USD</div>
-                            <div className="uk-text-large uk-text-success dark:uk-text-gray-10 balance">?</div>
+                            <div className="uk-text-large uk-text-success dark:uk-text-gray-10 balance">{((tokenBalance !== null) && (marketCap !== null)) ? "$"+ formatBalance(getUSD(marketCap, tokenBalance)) : "?" }</div>
                           </div>
-
-
 
                         </div>
                       </div>
@@ -147,25 +188,25 @@ const Home = () => {
                       <div className="uk-grid-small uk-child-width-1-2@s uk-child-width-1-3@m uk-text-center" data-uk-grid>
                         <div>
                           <div className="uk-text-lead uk-text-bold dark:uk-text-gray-10">Market Cap</div>
-                          <div className="uk-text-large  uk-text-success dark:uk-text-gray-10 market-cap">?</div>
+                          <div className="uk-text-large  uk-text-success dark:uk-text-gray-10 market-cap">{marketCap !== null ? "$"+ marketCap.toLocaleString("en-US") : "?"}</div>
                         </div>
 
 
                         <div>
                           <div className="uk-text-lead uk-text-bold dark:uk-text-gray-10">24H Volume</div>
-                          <div className="uk-text-large uk-text-success dark:uk-text-gray-10 volume">?</div>
+                          <div className="uk-text-large uk-text-success dark:uk-text-gray-10 volume">{volume !== null ? "$"+ volume.toLocaleString("en-US") : "?"}</div>
                         </div>
 
 
                         <div>
                           <div className="uk-text-lead uk-text-bold dark:uk-text-gray-10" >Holders</div>
-                          <div className="uk-text-large uk-text-success dark:uk-text-gray-10 holders">?</div>
+                          <div className="uk-text-large uk-text-success dark:uk-text-gray-10 holders">{holderCount !== null ? holderCount.toLocaleString("en-US") : "?"}</div>
                         </div>
 
 
                         <div>
                           <div className="uk-text-lead uk-text-bold dark:uk-text-gray-10">Liquidity</div>
-                          <div className="uk-text-large uk-text-success dark:uk-text-gray-10 liquidity">?</div>
+                          <div className="uk-text-large uk-text-success dark:uk-text-gray-10 liquidity">{liquidity !== null ? "$"+ liquidity.toLocaleString("en-US") : "?"}</div>
                         </div>
                       </div>
                       </div>

@@ -101,7 +101,7 @@ const Home = () => {
                         <a key={index} href= {nft.image}>
                           <div
                           key={index}
-                          className="card uni-minting-item uk-card uk-card-medium uk-card-border uk-card-default uk-height-large@m uk-radius-medium uk-radius-large@m dark:uk-background-white-5"
+                          className="card uni-minting-item uk-card uk-card-medium uk-card-border uk-card-default uk-radius-medium uk-radius-large@m dark:uk-background-white-5"
                         >
                           
                           <img
