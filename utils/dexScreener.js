@@ -4,7 +4,7 @@ export const fetchDexScreenerData = async (tokenAddress) => {
 
     // get holdercount 
     var holderCountD = null;
-    if(0){
+    if(1){
         const resp1 = await fetch(`/api/getHolders?tokenAddress=${tokenAddress}`);
         const data1 = await resp1.json();
         holderCountD = data1.holderCount;
