@@ -57,7 +57,7 @@ const Footer = () => {
                     </li>
                     <li>
                       <b>
-                        <a href="https://nft.retirementcoin.io">OG NFT Launch</a>
+                        <a href="https://nft.retirementcoin.io/mint">OG NFT Launch</a>
                       </b>
                     </li>
                   </ul>

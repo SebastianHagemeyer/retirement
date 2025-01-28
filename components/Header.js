@@ -58,7 +58,10 @@ const Header = () => {
                     data-uk-navbar-bound
                   >
                     <li>
-                      <Link href="/">Home</Link>
+                      <Link href="https://retirementcoin.io">Home</Link>
+                    </li>
+                    <li>
+                      <Link href="/">Dashboard</Link>
                     </li>
                     <li>
                       <Link href="/view">View NFT</Link>

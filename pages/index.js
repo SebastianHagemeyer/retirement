@@ -208,7 +208,7 @@ const Home = () => {
                       <div className="uk-card uk-card-default uk-card-body uk-border-rounded uk-box-shadow-medium dark:uk-background-white-10">
                         
                         <div className="container uk-card uk-card-default uk-card-body uk-border-rounded uk-margin-medium-bottom uk-box-shadow-medium dark:uk-background-white-10">
-                          <p className="dark:uk-text-gray-10" >Our marketing wallet holds a large amount of retirement coin, we won't dump this onto the community, we are yet to decide what to do with it.</p>
+                          <p className="dark:uk-text-gray-10" >Our marketing wallet holds a large amount of retirement coin, we won&apos;t dump this onto the community, we are yet to decide what to do with it.</p>
                         </div>
 
                         <div className="uk-grid-small uk-child-width-1-2@s uk-child-width-1-3@m uk-text-center" data-uk-grid>
