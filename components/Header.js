@@ -69,6 +69,9 @@ const Header = () => {
                     <li>
                       <Link href="/mint">Mint NFT</Link>
                     </li>
+                    <li>
+                      <Link href="/vote">Vote</Link>
+                    </li>
 
                   </ul>
                 </div>

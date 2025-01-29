@@ -235,7 +235,7 @@ export default function Home() {
                           <br />
                           <b>Whoever mints coin #47 will win the jackpot!</b><br />
                           Right now, the total prize pool sits at{" "}
-                          <b>{0.5 + (1060 - (Number(candyMachine?.data.itemsAvailable) - Number(candyMachine?.itemsRedeemed))) * 0.03} SOL</b>,
+                          <b>{(0.5 + (1060 - (Number(candyMachine?.data.itemsAvailable) - Number(candyMachine?.itemsRedeemed))) * 0.03).toFixed(2)} SOL</b>,
                           and it&apos;s only getting bigger!<br /> Who will be the lucky one to claim it? 
                           <br />
                           Mint now and get your chance at winning big! 
@@ -293,7 +293,7 @@ export default function Home() {
               )}
             </Stack>
 
-            <Text fontSize={"2em"} className="dark:uk-text-gray-10 noMarg"> <b> {0.5 + (1060 - (Number(candyMachine?.data.itemsAvailable) - Number(candyMachine?.itemsRedeemed))) * 0.03} SOL Prize </b></Text>
+            <Text fontSize={"2em"} className="dark:uk-text-gray-10 noMarg"> <b> {(0.5 + (1060 - (Number(candyMachine?.data.itemsAvailable) - Number(candyMachine?.itemsRedeemed))) * 0.03).toFixed(2)} SOL Prize </b></Text>
             <Text fontSize={"1.5em"} className="dark:uk-text-gray-10 noMarg"> <b> 1/{(Number(candyMachine?.data.itemsAvailable) - Number(candyMachine?.itemsRedeemed))} chance! </b></Text>
           </CardBody>
         </Card >

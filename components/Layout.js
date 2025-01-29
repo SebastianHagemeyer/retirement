@@ -18,6 +18,12 @@ const Layout = ({ children }) => {
       document.documentElement.classList.remove("uk-dark");
       localStorage.setItem("darkMode", "0");
     }
+
+    /*// 🚀 Force mobile browsers to reflow
+    setTimeout(() => {
+      window.dispatchEvent(new Event("resize"));
+    }, 100);*/
+    
   };
 
   // Sync the initial state with localStorage
@@ -59,6 +65,9 @@ const Layout = ({ children }) => {
     }else{
       darkModeToggle.checked = 0
     }
+
+
+    
 
   }, []);
 
