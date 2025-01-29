@@ -24,7 +24,7 @@ export default async function handler(req, res) {
             //console.log("CACHED", cachedHolderCount)
             return res.status(200).json({ holderCount: cachedHolderCount });
         } else {
-            //console.log("running intensive")
+            console.log("running intensive")
 
 
             // Run the function to fetch holders

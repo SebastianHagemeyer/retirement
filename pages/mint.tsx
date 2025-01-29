@@ -220,11 +220,29 @@ export default function Home() {
                 <br></br>
                 {loading ? (<></>) : (
                   <Flex justifyContent="center" marginLeft="auto">
-                    <Box background={"teal.100"} borderRadius={"5px"} minWidth={"50px"} minHeight={"50px"} p={2} >
+                    <Box maxWidth={"400px"} borderRadius={"5px"} minWidth={"50px"} minHeight={"50px"} p={2} >
                       <VStack >
                         <Text fontSize={"sm"} className="darkText noMarg">Available Coins:</Text>
                         <Text fontWeight={"semibold"} className="darkText noTopMarg">{Number(candyMachine?.data.itemsAvailable) - Number(candyMachine?.itemsRedeemed)}/{Number(candyMachine?.data.itemsAvailable)}</Text>
                       </VStack>
+                      <Box whiteSpace="normal" wordBreak="break-word">
+                        <Text fontSize={"sm"} className="darkText noMarg">
+                          <b>🚀 The Jackpot is Growing! 🚀</b>
+                          <br />
+                          Ever since coin #1060 was minted, the 0.5 SOL jackpot has been accumulating 0.03 SOL for each new mint! With{" "}
+                          {Number(candyMachine?.data.itemsAvailable) - Number(candyMachine?.itemsRedeemed)} coins still available, the
+                          jackpot keeps increasing.
+                          <br />
+                          <b>Whoever mints coin #47 will win the jackpot!</b><br />
+                          Right now, the total prize pool sits at{" "}
+                          <b>{0.5 + (1060 - (Number(candyMachine?.data.itemsAvailable) - Number(candyMachine?.itemsRedeemed))) * 0.03} SOL</b>,
+                          and it&apos;s only getting bigger!<br /> Who will be the lucky one to claim it? 
+                          <br />
+                          Mint now and get your chance at winning big! 
+                          <br />
+                        </Text>
+                      </Box>
+
                     </Box>
                   </Flex>
                 )}
@@ -249,6 +267,7 @@ export default function Home() {
                   className={"breathe"}
                 />
               </Box>
+              
             </Center>
             <Stack divider={<StackDivider />} spacing='8'>
               {loading ? (
@@ -273,6 +292,9 @@ export default function Home() {
                 />
               )}
             </Stack>
+
+            <Text fontSize={"2em"} className="dark:uk-text-gray-10 noMarg"> <b> {0.5 + (1060 - (Number(candyMachine?.data.itemsAvailable) - Number(candyMachine?.itemsRedeemed))) * 0.03} SOL Prize </b></Text>
+            <Text fontSize={"1.5em"} className="dark:uk-text-gray-10 noMarg"> <b> 1/{(Number(candyMachine?.data.itemsAvailable) - Number(candyMachine?.itemsRedeemed))} chance! </b></Text>
           </CardBody>
         </Card >
         {umi.identity.publicKey === candyMachine?.authority ? (
@@ -347,7 +369,7 @@ export default function Home() {
           data-uk-height-viewport=""
           style={{ minHeight: "calc(100vh)" }}
         >
-          
+
         </div>
 
         <div className="uk-panel uk-position-z-index">
@@ -365,9 +387,9 @@ export default function Home() {
                 >
                   <div className="centerText">
 
-                  {/* wallet goes here WalletMultiButtonDynamic */}
+                    {/* wallet goes here WalletMultiButtonDynamic */}
                     <br></br>
-                    <p className= "dark:uk-text-gray-10"> <i> Own a masterpiece. Shape the future. Retirement Coin NFTs combine timeless art with the power of governance. </i></p>
+                    <p className="dark:uk-text-gray-10"> <i> Own a masterpiece. Shape the future. Retirement Coin NFTs combine timeless art with the power of governance. </i></p>
 
                     <div className="boxS">
                       <div className={styles.center}>
