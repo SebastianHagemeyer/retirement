@@ -57,7 +57,7 @@ export default async function handler(req, res) {
             // Cache the result
             cachedHolderCount = holders.length;
             lastFetchTime = now;
-
+            console.log("finished intensive")
             res.status(200).json({ holderCount: cachedHolderCount });
         }
     } catch (error) {
