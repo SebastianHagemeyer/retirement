@@ -79,7 +79,7 @@ const Header = () => {
                 {/* Right Social Icons */}
                 <div className="uk-navbar-right uk-flex-1 uk-flex-right">
                   <div className="uk-navbar-item uk-visible@m">
-                    <ul className="uk-subnav uk-subnav-small">
+                    <ul className="uk-subnav uk-subnav-small dark:uk-text-gray-10">
                       <li>
                         <a href="https://x.com/retirementcto">
                           <i className="uk-icon-medium unicon-logo-twitter"></i>
