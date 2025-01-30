@@ -25,7 +25,7 @@ export async function getTokenBalance(walletAddress, tokenMintAddress) {
       const tokenAccountInfo = tokenAccounts.value[0].account.data.parsed.info;
       const balance = tokenAccountInfo.tokenAmount.uiAmount; // Human-readable balance
   
-      console.log(`Token balance: ${balance}`);
+      //console.log(`Token balance: ${balance}`);
       return balance;
     } catch (error) {
       console.error('Error fetching token balance:', error);

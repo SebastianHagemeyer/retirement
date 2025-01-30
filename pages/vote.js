@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import Layout from "../components/Layout";
-import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
+
+import WalletButton from "../components/WalletButton";
+
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useWalletNFTs } from "../hooks/useWalletNFTs";
 import { toast, ToastContainer } from "react-toastify";
@@ -113,7 +115,7 @@ const Home = () => {
               <div className="uk-container">
                 <br></br><br></br>
                 <h1>Welcome to the Voting System</h1>
-                <WalletMultiButton />
+                <WalletButton />
 
                 {/* ✅ Topics should always be visible, so move them here */}
                 <div className="uk-margin-top">

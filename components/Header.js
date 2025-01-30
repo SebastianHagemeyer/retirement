@@ -1,7 +1,9 @@
 import React from "react";
 //import MobileMenu from "./MobileMenu";
 import Link from "next/link";
-import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
+//import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
+
+import WalletButton from "./WalletButton"; // Import the new client-only component
 
 const Header = () => {
 
@@ -44,7 +46,7 @@ const Header = () => {
                   </a>
 
                   <div className="uk-button uk-button-large@m uk-button-gradient" >
-                      <WalletMultiButton />
+                      <WalletButton />
                     </div>
 
                 </div>
@@ -57,9 +59,7 @@ const Header = () => {
                     data-uk-scrollspy-nav="closest: li; scroll: true; offset: 40"
                     data-uk-navbar-bound
                   >
-                    <li>
-                      <Link href="https://retirementcoin.io">Home</Link>
-                    </li>
+                    
                     <li>
                       <Link href="/">Dashboard</Link>
                     </li>

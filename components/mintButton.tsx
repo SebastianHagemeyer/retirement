@@ -110,9 +110,9 @@ const mintClick = async (
   mintAmount: number,
   mintsCreated:
     | {
-        mint: PublicKey;
-        offChainMetadata: JsonMetadata | undefined;
-      }[]
+      mint: PublicKey;
+      offChainMetadata: JsonMetadata | undefined;
+    }[]
     | undefined,
   setMintsCreated: Dispatch<
     SetStateAction<
@@ -134,7 +134,7 @@ const mintClick = async (
   let buyBeer = false;
   //console.log("buyBeer",process.env.NEXT_PUBLIC_BUYMARKBEER )
 
-  if (process.env.NEXT_PUBLIC_BUYMARKBEER  === "false") {
+  if (process.env.NEXT_PUBLIC_BUYMARKBEER === "false") {
     buyBeer = false;
     //console.log("The Creator does not want to pay for MarkSackerbergs beer 😒");
   }
@@ -159,11 +159,11 @@ const mintClick = async (
         isClosable: true,
       });
       routeBuild = routeBuild.prepend(setComputeUnitPrice(umi, { microLamports: parseInt(process.env.NEXT_PUBLIC_MICROLAMPORTS ?? "1001") }));
-      const latestBlockhash = await umi.rpc.getLatestBlockhash({commitment: "finalized"});
+      const latestBlockhash = await umi.rpc.getLatestBlockhash({ commitment: "finalized" });
       routeBuild = routeBuild.setBlockhash(latestBlockhash)
       const builtTx = await routeBuild.buildAndSign(umi);
       const sig = await umi.rpc
-        .sendTransaction(builtTx, { skipPreflight:true, maxRetries: 1, preflightCommitment: "finalized", commitment: "finalized" })
+        .sendTransaction(builtTx, { skipPreflight: true, maxRetries: 1, preflightCommitment: "finalized", commitment: "finalized" })
         .then((signature) => {
           return { status: "fulfilled", value: signature };
         })
@@ -177,8 +177,8 @@ const mintClick = async (
           return { status: "rejected", reason: error, value: new Uint8Array };
 
         });
-        if (sig.status === "fulfilled")
-          await verifyTx(umi, [sig.value], latestBlockhash, "finalized");
+      if (sig.status === "fulfilled")
+        await verifyTx(umi, [sig.value], latestBlockhash, "finalized");
 
     }
 
@@ -201,8 +201,8 @@ const mintClick = async (
     const mintTxs: Transaction[] = [];
     let nftsigners = [] as KeypairSigner[];
 
-    const latestBlockhash = (await umi.rpc.getLatestBlockhash({commitment: "finalized"}));
-    
+    const latestBlockhash = (await umi.rpc.getLatestBlockhash({ commitment: "finalized" }));
+
     const mintArgs = mintArgsBuilder(candyMachine, guardToUse, ownedTokens);
     const nftMint = generateSigner(umi);
     const txForSimulation = buildTx(
@@ -253,14 +253,13 @@ const mintClick = async (
 
     let signatures: Uint8Array[] = [];
     let amountSent = 0;
-    
+
     const sendPromises = signedTransactions.map((tx, index) => {
       return umi.rpc
-        .sendTransaction(tx, { skipPreflight:true, maxRetries: 1, preflightCommitment: "finalized", commitment: "finalized" })
+        .sendTransaction(tx, { skipPreflight: true, maxRetries: 1, preflightCommitment: "finalized", commitment: "finalized" })
         .then((signature) => {
           console.log(
-            `Transaction ${index + 1} resolved with signature: ${
-              base58.deserialize(signature)[0]
+            `Transaction ${index + 1} resolved with signature: ${base58.deserialize(signature)[0]
             }`
           );
           amountSent = amountSent + 1;
@@ -291,7 +290,7 @@ const mintClick = async (
       status: "success",
       duration: 3000,
     });
-    
+
     const successfulMints = await verifyTx(umi, signatures, latestBlockhash, "finalized");
 
     updateLoadingText(
@@ -326,8 +325,8 @@ const mintClick = async (
 
     // Update mintsCreated only if there are new mints
     if (newMintsCreated.length > 0) {
-        setMintsCreated(newMintsCreated);
-        onOpen();
+      setMintsCreated(newMintsCreated);
+      onOpen();
     }
   } catch (e) {
     console.error(`minting failed because of ${e}`);
@@ -456,11 +455,11 @@ type Props = {
   ownedTokens: DigitalAssetWithToken[] | undefined;
   setGuardList: Dispatch<SetStateAction<GuardReturn[]>>;
   mintsCreated:
-    | {
-        mint: PublicKey;
-        offChainMetadata: JsonMetadata | undefined;
-      }[]
-    | undefined;
+  | {
+    mint: PublicKey;
+    offChainMetadata: JsonMetadata | undefined;
+  }[]
+  | undefined;
   setMintsCreated: Dispatch<
     SetStateAction<
       | { mint: PublicKey; offChainMetadata: JsonMetadata | undefined }[]
@@ -581,18 +580,20 @@ export function ButtonList({
         </Flex>
       </HStack>
       <SimpleGrid columns={2} spacing={5}>
-        <Text pt="2" fontSize="sm" className = "dark:uk-text-gray-10">
-          {buttonGuard.mintText}<Text pt="2" fontSize="0.7em" className = "dark:uk-text-gray-10">
-          {"+0.02 fees"}
+        <Text pt="2" fontSize="sm" className="dark:uk-text-gray-10">
+          {buttonGuard.mintText}
+          <span style={{ fontSize: "0.7em", display: "block", paddingTop: "4px" }}>
+            +0.02 fees
+          </span>
         </Text>
-        </Text>
-        
+
+
         <VStack>
 
 
           {process.env.NEXT_PUBLIC_MULTIMINT && buttonGuard.allowed ? (
-            
-            <NumberInput  
+
+            <NumberInput
               value={numberInputValues[buttonGuard.label] || 1}
               min={1}
               max={buttonGuard.maxAmount < 1 ? 1 : buttonGuard.maxAmount}
@@ -611,8 +612,8 @@ export function ButtonList({
           ) : null}
 
           <Tooltip label={buttonGuard.tooltip} aria-label="Mint button">
-            <Button 
-            className = "uk-button uk-button-large@m uk-button-gradient uk-margin-small-top"
+            <Button
+              className="uk-button uk-button-large@m uk-button-gradient uk-margin-small-top"
               onClick={() =>
                 mintClick(
                   umi,

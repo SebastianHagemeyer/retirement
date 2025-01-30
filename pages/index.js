@@ -167,6 +167,12 @@ const Home = () => {
 
                     <button
                       className="uk-button uk-button-large@m uk-button-gradient buttMarg"
+                      onClick={() => router.push("https://retirementcoin.io")}
+                    >
+                      <i className="material-icons">home</i>
+                    </button>
+                    <button
+                      className="uk-button uk-button-large@m uk-button-gradient buttMarg"
                       onClick={() => router.push("/view")}
                     >
                       View
@@ -177,6 +183,13 @@ const Home = () => {
                     >
                       Mint
                     </button>
+                    <button
+                      className="uk-button uk-button-large@m uk-button-gradient buttMarg"
+                      onClick={() => router.push("/vote")}
+                    >
+                      Vote
+                    </button>
+
                     <h1>Your Retirement Coin</h1>
                     <div className="uk-container uk-padding">
                       <div className="uk-card uk-card-default uk-card-body uk-border-rounded uk-box-shadow-medium dark:uk-background-white-10">
@@ -206,7 +219,7 @@ const Home = () => {
 
                     <div className="uk-container uk-padding">
                       <div className="uk-card uk-card-default uk-card-body uk-border-rounded uk-box-shadow-medium dark:uk-background-white-10">
-                        
+
                         <div className="container uk-card uk-card-default uk-card-body uk-border-rounded uk-margin-medium-bottom uk-box-shadow-medium dark:uk-background-white-10">
                           <p className="dark:uk-text-gray-10" >Our marketing wallet holds a large amount of retirement coin, we won&apos;t dump this onto the community, we are yet to decide what to do with it.</p>
                         </div>

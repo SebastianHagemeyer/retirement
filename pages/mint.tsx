@@ -383,7 +383,7 @@ export default function Home() {
               >
                 <div
                   className="uk-width-1-1 uk-flex uk-flex-center uk-flex-middle uk-first-column"
-                  style={{ height: "auto;" }}
+                  style={{ height: "auto" }}
                 >
                   <div className="centerText">
 

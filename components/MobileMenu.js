@@ -89,9 +89,7 @@ const MobileMenu = () => {
               <div className="uk-panel">
                 <ul className="uk-nav uk-nav-default">
                   <li className="uk-nav-header">Homepages</li>
-                  <li>
-                      <Link href="https://retirementcoin.io">Home</Link>
-                    </li>
+                  
                     <li>
                       <Link href="/">Dashboard</Link>
                     </li>
