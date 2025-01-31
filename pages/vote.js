@@ -196,40 +196,71 @@ const Home = () => {
                   <h3>Active Topics:</h3>
                   <ul>
                     {topics.length > 0 ? (
-                      topics.map((topic, index) => (
-                        <div key={topic.id}>
+                      topics.map((topic, index) => {
+                        
 
-                          <label>
+                        const createdDateUTC = new Date(topic.created_at + " UTC-5"); // Convert from Eastern Time to UTC
+                        const expirationDate = new Date(createdDateUTC.getTime() + 12 * 60 * 60 * 1000); // Add 12 hours
 
-                            <h3>{topic.title}</h3>
-                            <input
-                              type="checkbox"
-                              className="custom-checkbox"
-                              checked={selectedTopic === topic.id}
-                              onChange={() => setSelectedTopic(topic.id)}
-                            />
-                            (Votes: {topic.total_votes})
-                          </label>
+                        const nowLocal = new Date(); // Get current time
+                        const nowUTC = new Date(Date.UTC(
+                          nowLocal.getUTCFullYear(),
+                          nowLocal.getUTCMonth(),
+                          nowLocal.getUTCDate(),
+                          nowLocal.getUTCHours(),
+                          nowLocal.getUTCMinutes(),
+                          nowLocal.getUTCSeconds()
+                        ));
 
-                          <progress
-                            className="uk-progress custom-orange-progress"
-                            value={topic.percentage}
-                            max="100"
-                          ></progress>
+                        // Calculate remaining time
+                        const timeDiff = expirationDate - nowUTC; // Milliseconds difference
+                        const hoursLeft = Math.floor(timeDiff / (1000 * 60 * 60)); // Convert to hours
+                        const minutesLeft = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60)); // Remaining minutes
+                        const isExpired = timeDiff <= 0; // Check if expired
 
-                          <span className="uk-text-small">{topic.percentage.toFixed(1)}%</span>
+                        return (
+                          <div key={topic.id}>
+                            {/* Time Remaining */}
+                            {timeDiff > 0 ? (
+                              <p className="uk-text-warning">
+                                Expires in: {hoursLeft}h {minutesLeft}m
+                              </p>
+                            ) : (
+                              <p className="uk-text-warning">Expired</p>
+                            )}
 
-                          {/* Divider between topics, but NOT after the last one */}
-                          {index < topics.length - 1 && (
-                            <img className="uk-width-2xsmall uk-flex-center uk-margin-auto uk-margin-medium uk-margin-large@m"
-                              src="assets/images/divider-01.svg" alt="Divider"
-                              data-anime="opacity:[0, 1]; translateY:[24, 0]; onview: true; delay: 100;">
-                            </img>
-                          )}
+                            <label>
 
-                        </div>
+                              <h3>{topic.title}</h3>
+                              <input
+                                type="checkbox"
+                                className="custom-checkbox"
+                                disabled={isExpired}
+                                checked={selectedTopic === topic.id}
+                                onChange={() => setSelectedTopic(topic.id)}
+                              />
+                              (Votes: {topic.total_votes})
+                            </label>
 
-                      ))
+                            <progress
+                              className="uk-progress custom-orange-progress"
+                              value={topic.percentage}
+                              max="100"
+                            ></progress>
+
+                            <span className="uk-text-small">{topic.percentage.toFixed(1)}%</span>
+
+                            {/* Divider between topics, but NOT after the last one */}
+                            {index < topics.length - 1 && (
+                              <img className="uk-width-2xsmall uk-flex-center uk-margin-auto uk-margin-medium uk-margin-large@m"
+                                src="assets/images/divider-01.svg" alt="Divider"
+                                data-anime="opacity:[0, 1]; translateY:[24, 0]; onview: true; delay: 100;">
+                              </img>
+                            )}
+
+                          </div>
+                        );
+                      })
                     ) : (
                       <p>No active topics available.</p>
                     )}
