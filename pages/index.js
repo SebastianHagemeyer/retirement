@@ -76,8 +76,6 @@ const Home = () => {
     const fetchBalance = async (wallet) => {
 
 
-
-
       try {
         if (!wallet?.publicKey) {
           console.error("Wallet not connected or public key missing.");

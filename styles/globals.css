@@ -157,3 +157,31 @@ button.wallet-adapter-button-trigger:hover {
   max-width: 600px;
   margin: 0 auto; /* Center horizontally */
 }
+
+
+.custom-orange-progress {
+  background-color:  #ddd; /* Light background */
+}
+
+.custom-orange-progress::-webkit-progress-bar {
+  background-color:  #ddd; /* Light background */
+  border-radius: 5px;
+}
+
+.custom-orange-progress::-webkit-progress-value {
+  background-color:  #ffb397 !important; /* Orange fill */
+  border-radius: 5px;
+}
+
+.custom-orange-progress::-moz-progress-bar {
+  background-color:  #ffb397 !important; /* Orange fill */
+  border-radius: 5px;
+}
+
+.custom-checkbox {
+  width: 24px;  /* Adjust size */
+  height: 24px; /* Adjust size */
+   /* Increase size while maintaining sharpness */
+  margin-right: 10px; /* Spacing between checkbox and text */
+  cursor: pointer;
+}
