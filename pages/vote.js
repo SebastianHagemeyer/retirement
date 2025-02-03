@@ -1,28 +1,30 @@
 import { useEffect, useState } from "react";
 import Layout from "../components/Layout";
-
 import WalletButton from "../components/WalletButton";
-
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useWalletNFTs } from "../hooks/useWalletNFTs";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { totalmem } from "os";
+import { useRouter } from "next/router";
 
 const Home = () => {
+  const router = useRouter();
+
   const API_KEY = process.env.NEXT_PUBLIC_DB_API;
   const wallet = useWallet();
   const updateAuthority = "9u48hDfYSQsEuV9mdKaP31dF1CtqSuxL1mqeBY6Mz1CP";
   const { nfts, loading, fetchNFTs } = useWalletNFTs(updateAuthority);
 
   const [votingPower, setVotingPower] = useState(0);
-  const [totalVotes, setTotalVotes] = useState(0);
   const [topics, setTopics] = useState([]);
-  const [selectedTopic, setSelectedTopic] = useState(null);
-  const [voteValue, setVoteValue] = useState(1);
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const [expandedTopic, setExpandedTopic] = useState(null);
 
-  const [isSubmitting, setIsSubmitting] = useState(false); // Track button state
+  const toggleTopic = (topicId) => {
+    setExpandedTopic(expandedTopic === topicId ? null : topicId); // Toggle the selected topic
+  };
 
   // Fetch NFTs when wallet connects
   useEffect(() => {
@@ -31,152 +33,112 @@ const Home = () => {
     }
   }, [wallet.connected]);
 
-  // Calculate voting power (based on NFT count)
+  // Calculate voting power based on NFT count
   useEffect(() => {
-    if (nfts.length > 0) {
-      setVotingPower(nfts.length);
-    } else {
-      setVotingPower(0);
-    }
+    setVotingPower(nfts.length > 0 ? nfts.length : 0);
   }, [nfts]);
 
-  // Fetch active voting topics from backend
+  // Fetch topics with options and vote counts
   const fetchTopics = async () => {
-    const response = await fetch("https://retirementcoin.io/get_topics.php", {
+    const response = await fetch("https://retirementcoin.io/get_topics2.php", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "X-API-KEY": API_KEY
-      }
+        "X-API-KEY": API_KEY,
+      },
     });
 
     const data = await response.json();
+
     if (data.status === "success") {
-
-
-      let total = 0;
-      // Calculate total votes across all topics
-      data.topics.forEach(topic => {
-        total += parseInt(topic.total_votes, 10) || 0; // Assuming API returns `total_votes` per topic
-      });
-      setTotalVotes(total); // Store total votes in state
-
-
-      // Add percentage to each topic
-      data.topics.forEach(topic => {
-        //console.log(topic.totalVotes, total)
-        topic.percentage = total > 0 ? (topic.total_votes / total) * 100 : 0;
+      const processedTopics = data.topics.map((topic) => {
+        const totalVotes = topic.options.reduce((sum, opt) => sum + parseInt(opt.total_votes, 10), 0);
+        return {
+          ...topic,
+          totalVotes,
+          options: topic.options.map((opt) => ({
+            ...opt,
+            percentage: totalVotes > 0 ? (opt.total_votes / totalVotes) * 100 : 0,
+          })),
+        };
       });
 
-      //setTopics(data.topics);
-      setTopics(data.topics);
+      setTopics(processedTopics);
     } else {
       console.error("Error fetching topics:", data.message);
     }
-
   };
 
   useEffect(() => {
     fetchTopics();
   }, []);
 
-  // Submit vote to backend
+  // Submit vote for an option
   const submitVote = async () => {
-    setIsSubmitting(true); // Disable button while processing
-
-    setTimeout(() => {
-      setIsSubmitting(false); // Re-enable button after 300ms
-    }, 300);
-
     if (!wallet.connected) {
-      toast.error("Please connect your wallet first! 🔌");
+      toast.error("Please connect your wallet first!");
       return;
     }
-    if (!selectedTopic) {
-      toast.warning("Select a topic before voting! 🗳️");
+    if (!selectedOption) {
+      toast.warning("Select an option before voting!");
       return;
     }
 
-    const response = await fetch("https://retirementcoin.io/cast_vote99.php", {
+    setIsSubmitting(true);
+    const response = await fetch("https://retirementcoin.io/cast_vote2.php", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-API-KEY": API_KEY
+        "X-API-KEY": API_KEY,
       },
       body: JSON.stringify({
         wallet: wallet.publicKey.toString(),
-        topic_id: selectedTopic,
-        vote_value: votingPower
-      })
+        option_id: selectedOption,
+        vote_value: votingPower,
+      }),
     });
 
     const data = await response.json();
-    console.log(data.message)
-    //toast.success("✅ " + data.message); // Beautiful success toast
-    if (data.status === "success") {
-      toast.success("✅ " + data.message); // Beautiful success toast
-    } else if (data.status === "warn") {
-      toast.warning(data.message);
-    } else {
-      toast.error("❌ " + data.message); // Error toast
-    }
-    fetchTopics();
+    toast[data.status === "success" ? "success" : "error"](data.message);
+    fetchTopics(); // Refresh votes
+    setIsSubmitting(false);
   };
 
-
-  // Retract vote from backend
+  // Retract vote for an option
   const retractVote = async () => {
-    setIsSubmitting(true); // Disable button while processing
-
-    setTimeout(() => {
-      setIsSubmitting(false); // Re-enable button after 300ms
-    }, 300);
-
     if (!wallet.connected) {
-      toast.error("Please connect your wallet first! 🔌");
+      toast.error("Please connect your wallet first!");
       return;
     }
-    if (!selectedTopic) {
-      toast.warning("Select a topic to retract vote from! 🗳️");
+    if (!selectedOption) {
+      toast.warning("Select an option to retract your vote from!");
       return;
     }
 
-    const response = await fetch("https://retirementcoin.io/retract_vote.php", {
+    setIsSubmitting(true);
+    const response = await fetch("https://retirementcoin.io/retract_vote2.php", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-API-KEY": API_KEY
+        "X-API-KEY": API_KEY,
       },
       body: JSON.stringify({
         wallet: wallet.publicKey.toString(),
-        topic_id: selectedTopic
-      })
+        option_id: selectedOption,
+      }),
     });
 
     const data = await response.json();
-    console.log(data.message);
-
-    if (data.status === "success") {
-      toast.success("✅ " + data.message);
-    } else {
-      toast.error("❌ " + data.message);
-    }
-
-    fetchTopics(); // Refresh topics after retracting vote
+    toast[data.status === "success" ? "success" : "error"](data.message);
+    fetchTopics(); // Refresh votes
+    setIsSubmitting(false);
   };
 
   return (
     <Layout>
-      <ToastContainer
-        position="top-right"
-        autoClose={3000} // Auto close after 3 seconds
-        hideProgressBar={false}
-        newestOnTop={true}
-        closeOnClick
-        pauseOnHover
-        draggable
-        theme="dark"
-      />
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} theme="dark" />
+
+
       <div className="uk-panel uk-position-z-index">
         <div className="uk-container">
           <div className="uk-panel">
@@ -186,121 +148,101 @@ const Home = () => {
               data-uk-height-viewport="offset-top: true;"
               style={{ minHeight: "calc(-80px + 100vh)" }}
             >
-              <div className="uk-container">
-                <br></br><br></br>
-                <h1>Welcome to the Voting System</h1>
-                <WalletButton />
 
-                {/* ✅ Topics should always be visible, so move them here */}
+              <div className="uk-container">
+                <br></br><br></br><br></br>
+                <h1>Welcome to the Voting System</h1>
+                <div className="uk-flex uk-flex-wrap uk-flex-center uk-width-1-1">
+                <button className="uk-button uk-button-large@m uk-button-gradient buttMarg"><WalletButton />  </button>
+                <button
+                      className="uk-button uk-button-large@m uk-button-gradient buttMarg"
+                      onClick={() => router.push("/propose")}
+                    >
+                      Propose Topic
+                    </button></div>
+
                 <div className="uk-margin-top">
                   <h3>Active Topics:</h3>
-                  <ul>
-                    {topics.length > 0 ? (
-                      topics.map((topic, index) => {
+
+
+                  {topics.length > 0 ? (
+                    topics.map((topic) => (
+
+
+
+
+                      <div key={topic.topic_id} className="uk-margin-bottom">
+
+
+                        {/* topic and dropdown button */}
+                        <div class="topic-container">
                         
+                        <button
+                          className="uk-button uk-button-secondary "
+                          onClick={() => toggleTopic(topic.topic_id)}
+                        >
+                          <span class="material-icons">
+                            {expandedTopic === topic.topic_id ? "expand_less" : "expand_more"}
+                          </span>
+                          {expandedTopic === topic.topic_id ? "Hide Topic" : "Show Topic"} 
+                        </button>
+                        <span class="topic-text">{"("}{topic.title}{")"}</span>
+                        
+                        </div>
 
-                        const createdDateUTC = new Date(topic.created_at + " UTC-5"); // Convert from Eastern Time to UTC
-                        const expirationDate = new Date(createdDateUTC.getTime() + 12 * 60 * 60 * 1000); // Add 12 hours
+                        {expandedTopic === topic.topic_id && (
 
-                        const nowLocal = new Date(); // Get current time
-                        const nowUTC = new Date(Date.UTC(
-                          nowLocal.getUTCFullYear(),
-                          nowLocal.getUTCMonth(),
-                          nowLocal.getUTCDate(),
-                          nowLocal.getUTCHours(),
-                          nowLocal.getUTCMinutes(),
-                          nowLocal.getUTCSeconds()
-                        ));
+                          
+                            topic.options.map((option) => (
 
-                        // Calculate remaining time
-                        const timeDiff = expirationDate - nowUTC; // Milliseconds difference
-                        const hoursLeft = Math.floor(timeDiff / (1000 * 60 * 60)); // Convert to hours
-                        const minutesLeft = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60)); // Remaining minutes
-                        const isExpired = timeDiff <= 0; // Check if expired
 
-                        return (
-                          <div key={topic.id}>
-                            {/* Time Remaining */}
-                            {timeDiff > 0 ? (
-                              <p className="uk-text-warning">
-                                Expires in: {hoursLeft}h {minutesLeft}m
-                              </p>
-                            ) : (
-                              <p className="uk-text-warning">Expired</p>
-                            )}
+                              <div key={option.option_id} className="uk-margin-small">
+                                <label>
+                                  {/*disabled={isExpired}*/}
+                                  <input
+                                    type="checkbox"
+                                    className="custom-checkbox"
 
-                            <label>
+                                    checked={selectedOption === option.option_id}
+                                    onChange={() => setSelectedOption(option.option_id)}
+                                  />
 
-                              <h3>{topic.title}</h3>
-                              <input
-                                type="checkbox"
-                                className="custom-checkbox"
-                                disabled={isExpired}
-                                checked={selectedTopic === topic.id}
-                                onChange={() => setSelectedTopic(topic.id)}
-                              />
-                              (Votes: {topic.total_votes})
-                            </label>
+                                  {option.option_title} (Votes: {option.total_votes}) <span className="uk-text-small">{option.percentage.toFixed(1)}%</span>
+                                </label>
 
-                            <progress
-                              className="uk-progress custom-orange-progress"
-                              value={topic.percentage}
-                              max="100"
-                            ></progress>
+                                <progress className="uk-progress custom-orange-progress" value={option.percentage} max="100"></progress>
+                                
+                              </div>
 
-                            <span className="uk-text-small">{topic.percentage.toFixed(1)}%</span>
+                            ))
+                          
 
-                            {/* Divider between topics, but NOT after the last one */}
-                            {index < topics.length - 1 && (
-                              <img className="uk-width-2xsmall uk-flex-center uk-margin-auto uk-margin-medium uk-margin-large@m"
-                                src="assets/images/divider-01.svg" alt="Divider"
-                                data-anime="opacity:[0, 1]; translateY:[24, 0]; onview: true; delay: 100;">
-                              </img>
-                            )}
+                        )}
 
-                          </div>
-                        );
-                      })
-                    ) : (
-                      <p>No active topics available.</p>
-                    )}
-                  </ul>
+                        
+                      </div>
+                    ))
+                  ) : (
+                    <p>No active topics available.</p>
+                  )}
                 </div>
 
-                {/* ✅ Only show wallet-based elements if connected */}
                 {wallet.connected && (
                   <>
-                    <p><strong>Connected Wallet:</strong> {wallet.publicKey.toString()}</p>
-                    <p><strong>Voting Power:</strong> {votingPower} (Based on NFT Holdings)</p>
+                    <p>
+                      <strong>Connected Wallet:</strong> {wallet.publicKey.toString()}
+                    </p>
+                    <p>
+                      <strong>Voting Power:</strong> {votingPower} (Based on NFT Holdings)
+                    </p>
 
-                    <button
-                      className="uk-button uk-button-gradient"
-                      onClick={() => fetchNFTs(wallet.publicKey.toString())}
-                      disabled={loading}
-                    >
-                      {loading ? "Loading NFTs..." : "Refresh NFTs"}
+                    <button className="uk-button uk-button-primary" onClick={submitVote} disabled={isSubmitting || !selectedOption || votingPower === 0}>
+                      Submit Vote
                     </button>
 
-                    {/* Voting Form */}
-                    <div className="uk-margin-top">
-                      <h3>Cast Your Vote:</h3>
-                      <button
-                        className="uk-button uk-button-primary"
-                        onClick={() => submitVote()}
-                        //disabled={!selectedTopic || votingPower === 0}
-                        disabled={isSubmitting || !selectedTopic || votingPower === 0}
-                      >
-                        Submit Vote
-                      </button>
-
-                      <button
-                        className="uk-button uk-button-primary uk-margin-left"
-                        onClick={() => retractVote()}
-                        disabled={isSubmitting || !selectedTopic || votingPower === 0}
-                      >
-                        Retract Vote
-                      </button>
-                    </div>
+                    <button className="uk-button uk-button-danger uk-margin-left" onClick={retractVote} disabled={isSubmitting || !selectedOption}>
+                      Retract Vote
+                    </button>
                   </>
                 )}
               </div>
@@ -308,9 +250,9 @@ const Home = () => {
           </div>
         </div>
       </div>
+
     </Layout>
   );
-
 };
 
 export default Home;

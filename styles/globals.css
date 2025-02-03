@@ -185,3 +185,15 @@ button.wallet-adapter-button-trigger:hover {
   margin-right: 10px; /* Spacing between checkbox and text */
   cursor: pointer;
 }
+
+
+.topic-container {
+  display: flex;
+  align-items: center; /* Vertically align button & text */
+  gap: 10px; /* Add spacing between button and text */
+}
+
+.topic-text {
+  font-size: 16px; /* Match text size with button */
+  vertical-align: middle; /* Ensures text aligns properly */
+}
