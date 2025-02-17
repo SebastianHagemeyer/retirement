@@ -187,6 +187,12 @@ const Home = () => {
                     >
                       Vote
                     </button>
+                    <button
+                      className="uk-button uk-button-large@m uk-button-gradient buttMarg"
+                      onClick={() => router.push("/lock")}
+                    >
+                      Lock
+                    </button>
 
                     <h1>Your Retirement Coin</h1>
                     <div className="uk-container uk-padding">
