@@ -102,6 +102,9 @@ const MobileMenu = () => {
                     <li>
                       <Link href="/vote">Vote</Link>
                     </li>
+                    <li>
+                      <Link href="/lock">Lock</Link>
+                    </li>
                 </ul>
               </div>
             </div>

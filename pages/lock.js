@@ -58,10 +58,11 @@ const Home = () => {
 
               <div className="uk-container">
                 <br></br><br></br><br></br>
-                <h1 style={{ fontSize: '2.5rem', fontWeight: 'bold', textAlign: 'center', textShadow: '2px 2px 8px rgba(0, 0, 0, 0.8)' }}>Welcome to the Locking System</h1>
+                <h1 style={{ fontSize: '4rem', fontWeight: 'bold', textAlign: 'center', textShadow: '2px 2px 8px rgba(0, 0, 0, 0.8)' }}>Welcome to the Locking System</h1>
                 <p>Earn approximatley 4.3% APY on your Retirement Coin! This will be offered as a 1% return over 3 month terms. Some will pledge to lock their tokens not only for a reward, but to show the strength of our community and their belief in our project! </p>
                 <h2 style={{ fontSize: '2.5rem', fontWeight: 'bold', textAlign: 'center'}}>Countdown to the 22nd (UTC Time):</h2>
                 <h1 style={{ textAlign: 'center' , fontSize: '3rem' }}>{formatTime(timeLeft)}</h1>
+                <br></br><br></br><br></br>
               </div>
             </div>
           </div>
