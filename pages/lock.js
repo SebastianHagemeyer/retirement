@@ -11,6 +11,13 @@ const Home = () => {
   const router = useRouter();
   const [timeLeft, setTimeLeft] = useState(0);
 
+  const wallet = useWallet();
+
+  const [totalLocked, setTotalLocked] = useState(0);
+  const [amount, setAmount] = useState(0);
+  const [lockedAmount, setLockedAmount] = useState(0);
+  const [unlockTime, setUnlockTime] = useState(0);
+
   
   useEffect(() => {
     const calculateTimeLeft = () => {
@@ -40,6 +47,14 @@ const Home = () => {
     return `${days}d ${hours}h ${minutes}m ${seconds}s`;
   };
 
+  const lockTokens = async () => {
+    console.log("Locking " + amount)
+
+    
+    
+    
+  };
+
 
   return (
     <Layout>
@@ -58,10 +73,43 @@ const Home = () => {
 
               <div className="uk-container">
                 <br></br><br></br><br></br>
-                <h1 style={{ fontSize: '4rem', fontWeight: 'bold', textAlign: 'center', textShadow: '2px 2px 8px rgba(0, 0, 0, 0.8)' }}>Welcome to the Locking System</h1>
+                <h3 style={{ textAlign: 'center', textShadow: '2px 2px 8px rgba(0, 0, 0, 0.8)' , marginBottom: '0px'}}>Welcome to the</h3>
+                <h1 style={{ fontSize: '4rem', fontWeight: 'bold', textAlign: 'center', textShadow: '2px 2px 8px rgba(0, 0, 0, 0.8)', marginTop: '0px'}}>Locking System</h1>
                 <p>Earn approximatley 4.3% APY on your Retirement Coin! This will be offered as a 1% return over 3 month terms. Some will pledge to lock their tokens not only for a reward, but to show the strength of our community and their belief in our project! </p>
-                <h2 style={{ fontSize: '2.5rem', fontWeight: 'bold', textAlign: 'center'}}>Countdown to the 22nd (UTC Time):</h2>
-                <h1 style={{ textAlign: 'center' , fontSize: '3rem' }}>{formatTime(timeLeft)}</h1>
+                
+                {wallet.connected ? (
+                <>
+                    <div className="card uni-minting-item uk-card uk-card-medium uk-card-border uk-card-default uk-radius-medium uk-radius-large@m dark:uk-background-white-5">
+                        <p className="dark:uk-text-gray-10">Total Locked: {totalLocked} RETIREMENT</p>
+                        <p className="dark:uk-text-gray-10">Your Locked: {lockedAmount} RETIREMENT</p>
+                        <p className="dark:uk-text-gray-10">Unlocks at: {new Date(unlockTime * 1000).toLocaleString()}</p>
+                    </div>
+                    <br></br>
+                    <div className="card uni-minting-item uk-card uk-card-medium uk-card-border uk-card-default uk-radius-medium uk-radius-large@m dark:uk-background-white-5">
+                        <h2 className="">Lock Management</h2>
+                        <input
+                            type="text"
+                            placeholder="Enter amount"
+                            className="uk-input uk-form-width-medium textF"
+                            value={amount}
+                            onChange={(e) => {
+                              const value = e.target.value.replace(/[^0-9]/g, ''); // Allow only numbers
+                              setAmount(value);
+                          }}
+                        />
+                        <button
+                            className="uk-button uk-button-secondary"
+                            onClick={lockTokens}
+                        >
+                            Lock
+                        </button>
+                    </div>
+                </>
+            ) : (
+                <h2 className="">Please connect your wallet</h2>
+            )}
+
+
                 <br></br><br></br><br></br>
               </div>
             </div>
