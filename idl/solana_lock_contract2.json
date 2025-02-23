@@ -1,0 +1,158 @@
+{
+  "address": "7oFgc3PZxm5S4z8gkVcE5HD5sZr6v5VHA9xD22fo9HBf",
+  "metadata": {
+    "name": "solana_lock_contract2",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Created with Anchor"
+  },
+  "instructions": [
+    {
+      "name": "lock",
+      "discriminator": [
+        21,
+        19,
+        208,
+        43,
+        237,
+        62,
+        255,
+        87
+      ],
+      "accounts": [
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "user_token_account",
+          "writable": true
+        },
+        {
+          "name": "lock_state",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "vault_token_account",
+          "writable": true
+        },
+        {
+          "name": "mint",
+          "address": "EBsUinKdtJCfvriuBRunX5vJNEYTJWYSBMFvFTWsJ4ns"
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "unlock",
+      "discriminator": [
+        101,
+        155,
+        40,
+        21,
+        158,
+        189,
+        56,
+        203
+      ],
+      "accounts": [
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "user_token_account",
+          "writable": true
+        },
+        {
+          "name": "vault_token_account",
+          "writable": true,
+          "relations": [
+            "lock_state"
+          ]
+        },
+        {
+          "name": "lock_state"
+        },
+        {
+          "name": "program_authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "mint",
+          "address": "EBsUinKdtJCfvriuBRunX5vJNEYTJWYSBMFvFTWsJ4ns"
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    }
+  ],
+  "accounts": [
+    {
+      "name": "LockState",
+      "discriminator": [
+        140,
+        53,
+        195,
+        57,
+        171,
+        177,
+        11,
+        86
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "StillLocked",
+      "msg": "Tokens are still locked."
+    }
+  ],
+  "types": [
+    {
+      "name": "LockState",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "unlock_time",
+            "type": "i64"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "vault_token_account",
+            "type": "pubkey"
+          }
+        ]
+      }
+    }
+  ]
+}
