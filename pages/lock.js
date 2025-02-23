@@ -23,7 +23,7 @@ const Home = () => {
       const now = new Date();
       const currentYear = now.getUTCFullYear();
       const currentMonth = now.getUTCMonth();
-      const targetDate = new Date(Date.UTC(currentYear, currentMonth, 22, 14, 0, 0));
+      const targetDate = new Date(Date.UTC(currentYear, currentMonth, 25, 0, 0, 0));
 
 
       const difference = targetDate.getTime() - now.getTime();
@@ -72,7 +72,7 @@ const Home = () => {
 
               <div className="uk-container">
                 <br></br><br></br><br></br>
-                <h2 style={{ fontSize: '2.5rem', fontWeight: 'bold', textAlign: 'center'}}>Countdown to the 22nd (UTC Time):</h2>
+                <h2 style={{ fontSize: '2.5rem', fontWeight: 'bold', textAlign: 'center'}}>Countdown to the 25th (UTC Time):</h2>
                 <h1 style={{ textAlign: 'center' , fontSize: '3rem' }}>{formatTime(timeLeft)}</h1>
                 
                 <h3 style={{ textAlign: 'center', textShadow: '2px 2px 8px rgba(0, 0, 0, 0.8)' , marginBottom: '0px'}}>Welcome to the</h3>
@@ -84,7 +84,7 @@ const Home = () => {
                     <div className="card uni-minting-item uk-card uk-card-medium uk-card-border uk-card-default uk-radius-medium uk-radius-large@m dark:uk-background-white-5">
                         <p className="dark:uk-text-gray-10">Total Locked: {totalLocked} RETIREMENT</p>
                         <p className="dark:uk-text-gray-10">Your Locked: {lockedAmount} RETIREMENT</p>
-                        <p className="dark:uk-text-gray-10">Unlocks at: {new Date(unlockTime * 1000).toLocaleString()}</p>
+                        
                     </div>
                     <br></br>
                     <div className="card uni-minting-item uk-card uk-card-medium uk-card-border uk-card-default uk-radius-medium uk-radius-large@m dark:uk-background-white-5">
