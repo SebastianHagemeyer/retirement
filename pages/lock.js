@@ -30,22 +30,25 @@ const Home = () => {
   const [lockedAmount, setLockedAmount] = useState(null);
   const [unlockTime, setUnlockTime] = useState(null);
   const [lockStatePda, setLockStatePda] = useState(null);
+  const [locks, setLocks] = useState([]);
+
+  async function fetchLockedAmount() {
+    try {
+      const res = await fetch("https://retirementcoin.io/get_all_locked.php");
+      const data = await res.json();
+      const totalLocked = parseFloat(data.total_locked || 0).toFixed(1);
+      setTotalLocked(totalLocked || "0.0");
+    } catch (error) {
+      console.error("Fetch error:", error);
+      setTotalLocked("Error retrieving data");
+    }
+  }
 
   useEffect(() => {
-    async function fetchLockedAmount() {
-        try {
-            const res = await fetch("https://retirementcoin.io/get_all_locked.php");
-            const data = await res.json();
-            const totalLocked = parseFloat(data.total_locked || 0).toFixed(1);
-            setTotalLocked(totalLocked || "0.0");
-        } catch (error) {
-            console.error("Fetch error:", error);
-            setTotalLocked("Error retrieving data");
-        }
-    }
+    
 
     fetchLockedAmount();
-    }, []);
+  }, []);
 
   // Get Provider for Anchor
   const getProvider = () => {
@@ -63,81 +66,106 @@ const Home = () => {
   const submitAction = async (walName, time, amount, txid) => {
     try {
 
-        const response = await fetch("https://retirementcoin.io/lock_system.php", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "X-API-KEY": API_KEY,
-            },
-            body: JSON.stringify({
-                public_key: walName,
-                timelock: time,
-                amount: amount,
-                txid: txid, 
-            }),
-        });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        const text = await response.text();
-
-        try {
-            const data = JSON.parse(text);
-            toast[data.status === "success" ? "success" : "error"](data.message);
-            console.log(data)
-        } catch (jsonError) {
-            console.error("JSON parse error:", text);
-            toast.error("Unexpected server response.");
-        }
-
-    } catch (error) {
-        console.error("Fetch error:", error);
-        toast.error("Failed to connect to the server.");
-    }
-};
-
-const unlockDB = async (walName) => {
-  try {
-
-      const response = await fetch("https://retirementcoin.io/unlock.php", {
-          method: "POST",
-          headers: {
-              "Content-Type": "application/json",
-              "X-API-KEY": API_KEY,
-          },
-          body: JSON.stringify({
-              public_key: walName,
-          }),
+      const response = await fetch("https://retirementcoin.io/lock_system.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-KEY": API_KEY,
+        },
+        body: JSON.stringify({
+          public_key: walName,
+          timelock: time,
+          amount: amount,
+          txid: txid,
+        }),
       });
 
       if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
+        throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
       const text = await response.text();
 
       try {
-          const data = JSON.parse(text);
-          toast[data.status === "success" ? "success" : "error"](data.message);
-          console.log(data)
+        const data = JSON.parse(text);
+        toast[data.status === "success" ? "success" : "error"](data.message);
+        console.log(data)
       } catch (jsonError) {
-          console.error("JSON parse error:", text);
-          toast.error("Unexpected server response.");
+        console.error("JSON parse error:", text);
+        toast.error("Unexpected server response.");
       }
 
-  } catch (error) {
+    } catch (error) {
       console.error("Fetch error:", error);
       toast.error("Failed to connect to the server.");
+    }
+  };
+
+  const unlockDB = async (walName) => {
+    try {
+
+      const response = await fetch("https://retirementcoin.io/unlock.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-KEY": API_KEY,
+        },
+        body: JSON.stringify({
+          public_key: walName,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const text = await response.text();
+
+      try {
+        const data = JSON.parse(text);
+        toast[data.status === "success" ? "success" : "error"](data.message);
+        console.log(data)
+      } catch (jsonError) {
+        console.error("JSON parse error:", text);
+        toast.error("Unexpected server response.");
+      }
+
+    } catch (error) {
+      console.error("Fetch error:", error);
+      toast.error("Failed to connect to the server.");
+    }
+  };
+
+
+  const getRecentLocks = async () => {
+    try {
+      const response = await fetch('https://retirementcoin.io/get_recent_locks.php', {
+        method: 'GET',
+        headers: {
+          'X-API-KEY': API_KEY, // Your API key
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      return data
+    } catch (error) {
+      console.error('Error fetching holders:', error);
+    }
+  };
+
+  const testF = async () => {
+    //await submitAction("walName","1", "1", "txxxx");
+    console.log("testF")
+    const recentLocks = await getRecentLocks();
+    setLocks(recentLocks.locks);
+    console.log(recentLocks)
+
   }
-};
-
-
-const testF = async () => {
-  //await submitAction("walName","1", "1", "txxxx");
-  console.log("testF")
-}
 
 
   const lockTokens = async () => {
@@ -208,7 +236,7 @@ const testF = async () => {
 
       console.log("✅ Tokens locked successfully:", tx);
       toast.success(`Locked ${amount} tokens!`);
-      
+
       const unixTime = Math.floor(Date.now() / 1000);
       await submitAction(user, unixTime, amount, tx.toString());
 
@@ -239,6 +267,8 @@ const testF = async () => {
 
       toast.error(errorMessage, { autoClose: 5000 });
     }
+
+    fetchLockedAmount();
 
   };
 
@@ -424,6 +454,7 @@ const testF = async () => {
 
       toast.error(errorMessage, { autoClose: 5000 });
     }
+    fetchLockedAmount();
 
   };
 
@@ -442,11 +473,104 @@ const testF = async () => {
               style={{ minHeight: "calc(-80px + 100vh)" }}
             >
 
-              <div className="uk-container">
+              <div className="uk-container" style={{ marginBottom: '100px' }}>
                 <br></br><br></br><br></br>
                 <h3 style={{ textAlign: 'center', textShadow: '2px 2px 8px rgba(0, 0, 0, 0.8)', marginBottom: '0px' }}>Welcome to the</h3>
                 <h1 style={{ fontSize: '4rem', fontWeight: 'bold', textAlign: 'center', textShadow: '2px 2px 8px rgba(0, 0, 0, 0.8)', marginTop: '0px' }}>Locking System</h1>
+                <h3 style={{ textAlign: 'center', textShadow: '2px 2px 8px rgba(0, 0, 0, 0.8)', marginBottom: '0px' }}>Total Locked: {totalLocked ?? "?"} RETIREMENT</h3>
                 <p>Earn approximatley 4.3% APY on your Retirement Coin! This will be offered as a 1% return over 3 month terms. Some will pledge to lock their tokens not only for a reward, but to show the strength of our community and their belief in our project! </p>
+                <button
+                  className="uk-button uk-button-secondary"
+                  onClick={testF}
+                >
+                  View recent locks
+
+
+                </button>
+                <br></br><br></br>
+
+                {locks.length > 0 && (
+                  <div style={{ maxWidth: "90vw ", marginBottom:"20px" }} className="card uni-minting-item uk-card uk-card-medium uk-card-border uk-card-default uk-radius-medium uk-radius-large@m dark:uk-background-white-5">
+                    <table className="dark:uk-text-gray-10">
+                      <thead>
+                        <tr>
+                          <th>Public Key</th>
+                          <th>Timelock</th>
+                          <th>Amount</th>
+                          <th>Transaction ID</th>
+                          <th>Unlocked</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {locks.map((lock, index) => (
+                          <tr key={index}>
+                            <td className="txid medium truncate">{lock.public_key}</td>
+                            <td className="medium">{new Date(lock.timelock * 1000).toLocaleString()}</td>
+                            <td className="smaller">{parseInt(lock.amount).toFixed(1)}</td>
+                            <td className="txid medium truncate">{lock.txid}</td>
+                            <td className="smaller">{lock.unlocked ? "✅" : "❌"}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                    <style jsx>{`
+                .card uni-minting-item uk-card uk-card-medium uk-card-border uk-card-default uk-radius-medium uk-radius-large@m dark:uk-background-white-5 {
+                    overflow-x: auto;
+                    
+                    width:auto;
+                }
+                    
+
+                .error {
+                    color: red;
+                    margin-top: 10px;
+                }
+   
+                 table {
+                    max-width: 100 vw; ! important
+
+                    table-layout: auto; /* Ensures even column width */
+                    border-collapse: collapse;
+                    margin-top: 10px;
+                }
+                th, td {
+                    border: 1px solid #ddd;
+                    padding: 8px;
+                    text-align: left;
+                }
+                th {
+                    
+                }
+                .txid {
+                    max-width: 150px;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+                    .smaller { width: 10%; } /* Smaller */
+                     .medium { width: 20%; } /* Medium */
+
+                     /* Make font smaller on smaller screens */
+                  @media (max-width: 768px) {
+                      th, td {
+                          font-size: 10px;
+                          padding: 2px; /* Reduce padding */
+                          display:hidden;
+                      }  
+
+                      .smaller { width: 10%; } /* Smaller */
+                     .medium { max-width: 10vw; } /* Medium */
+                          
+
+                  }
+                     
+
+            `}</style>
+                  </div>
+
+
+                )}
+
 
                 {wallet.connected ? (
                   <>
@@ -496,12 +620,7 @@ const testF = async () => {
                       </button>
 
 
-                      <button
-                        className="uk-button uk-button-secondary"
-                        onClick={testF}
-                      >
-                        Test
-                      </button>
+
 
                     </div>
                   </>
