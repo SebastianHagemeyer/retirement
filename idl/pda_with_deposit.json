@@ -1,10 +1,10 @@
 {
-  "address": "3mj1qf6zYtJiskhVSt22B8a5yFB8psWY8pVhaF3R2UnV",
+  "address": "4rgovTRrweXcMvkQzrEzTnY8wQA9meYmVfGCPbM7h96d",
   "metadata": {
     "name": "pda_with_deposit",
     "version": "0.1.0",
     "spec": "0.1.0",
-    "description": "Created with Anchor"
+    "description": "Created with Anchor, Specifically for Retirement Coin CTO by Seb"
   },
   "instructions": [
     {
@@ -223,6 +223,11 @@
       "code": 6002,
       "name": "TokensStillLocked",
       "msg": "Tokens are still locked."
+    },
+    {
+      "code": 6003,
+      "name": "InvalidTokenMint",
+      "msg": "Invalid token mint. Only Retirement Coin can be locked."
     }
   ],
   "types": [

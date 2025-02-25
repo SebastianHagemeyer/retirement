@@ -13,12 +13,13 @@ import idl from "../idl/pda_with_deposit.json"; // Import the IDL file
 import { PublicKey, Connection, SystemProgram } from "@solana/web3.js";
 
 //  Smart Contract Program ID
-const PROGRAM_ID = new PublicKey("3mj1qf6zYtJiskhVSt22B8a5yFB8psWY8pVhaF3R2UnV");
+const PROGRAM_ID = new PublicKey("4rgovTRrweXcMvkQzrEzTnY8wQA9meYmVfGCPbM7h96d");
 // Token Mint Address
-const TOKEN_MINT = new PublicKey("EBsUinKdtJCfvriuBRunX5vJNEYTJWYSBMFvFTWsJ4ns");
+const TOKEN_MINT = new PublicKey("HLRGoPcK1n4fmkowVyBNkVHRoiiCUL2qyneNqTUNpump");
+//const TOKEN_MINT = new PublicKey("2G3vgsXJoaKDXzH8sVcXNM8Y3z1hsaNFnxyxJEnqSdEk");
 const DECI = 1000000; // multiply for 6 decimals
 // Connection to Solana
-const network = "https://api.devnet.solana.com";
+const network = process.env.NEXT_PUBLIC_RPC;
 const connection = new Connection(network, "confirmed");
 
 const Home = () => {
@@ -254,7 +255,8 @@ const Home = () => {
         const knownErrors = [
           "PDA already contains tokens. Withdraw before depositing again.",
           "No tokens available to withdraw.",
-          "Tokens are still locked."
+          "Tokens are still locked.",
+          "Invalid token mint. Only Retirement Coin can be locked."
         ];
 
         // ✅ Check if the error message contains one of the known errors
@@ -269,6 +271,7 @@ const Home = () => {
     }
 
     fetchLockedAmount();
+    testF();
 
   };
 
@@ -455,6 +458,7 @@ const Home = () => {
       toast.error(errorMessage, { autoClose: 5000 });
     }
     fetchLockedAmount();
+    testF();
 
   };
 
@@ -507,7 +511,9 @@ const Home = () => {
                             <td className="txid medium truncate">{lock.public_key}</td>
                             <td className="medium">{new Date(lock.timelock * 1000).toLocaleString()}</td>
                             <td className="smaller">{parseInt(lock.amount).toFixed(1)}</td>
+                            <a href={`https://solscan.io/tx/${lock.txid}`} target="_blank" rel="noopener noreferrer">
                             <td className="txid medium truncate">{lock.txid}</td>
+                            </a>
                             <td className="smaller">{lock.unlocked ? "✅" : "❌"}</td>
                           </tr>
                         ))}
@@ -618,6 +624,7 @@ const Home = () => {
                       >
                         Info
                       </button>
+                      {/*<p>{TOKEN_MINT.toString()}</p>*/}
 
 
 
