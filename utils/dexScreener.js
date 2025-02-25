@@ -29,7 +29,7 @@ export const fetchDexScreenerData = async (tokenAddress) => {
 
     // get holdercount upload
     var holderCountD = null;
-    if (1) { // not for production env, too laggy
+    if (0) { // not for production env, too laggy
         const resp1 = await fetch(`/api/getHolders?tokenAddress=${tokenAddress}`);
         const data1 = await resp1.json();
         holderCountD = data1.holderCount;

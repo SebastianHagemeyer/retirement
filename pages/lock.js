@@ -24,6 +24,10 @@ const connection = new Connection(network, "confirmed");
 
 const Home = () => {
   const API_KEY = process.env.NEXT_PUBLIC_DB_API;
+  
+  const totalSupply = 998928617;
+
+
 
   const wallet = useWallet();
   const [totalLocked, setTotalLocked] = useState(null);
@@ -277,6 +281,7 @@ const Home = () => {
 
   const gInfo = async () => {
     console.log("Getting info")
+    var infoError = "Error Fetching Info.";
     try {
       if (!wallet.connected) {
         toast.error("Wallet not connected!");
@@ -320,6 +325,7 @@ const Home = () => {
         //  toast.success("PDA exists!");
       } else {
         console.log("❌ PDA does not exist.");
+        infoError = "No lock address found for this wallet.";
         //  toast.error("PDA not found!");
       }
       //console.log(accountInfo)
@@ -328,6 +334,7 @@ const Home = () => {
 
       if (!pdaData) {
         console.error("❌ No lock data found.");
+        infoError = "No lock data found for this wallet.";
         return null;
       }
       // ✅ Convert lock time from hex to a readable date
@@ -355,7 +362,7 @@ const Home = () => {
       setLockedAmount(balance)
 
     } catch (error) {
-      toast.error("Error Fetching Info.");
+        toast.error(infoError);
     }
 
   };
@@ -481,7 +488,9 @@ const Home = () => {
                 <br></br><br></br><br></br>
                 <h3 style={{ textAlign: 'center', textShadow: '2px 2px 8px rgba(0, 0, 0, 0.8)', marginBottom: '0px' }}>Welcome to the</h3>
                 <h1 style={{ fontSize: '4rem', fontWeight: 'bold', textAlign: 'center', textShadow: '2px 2px 8px rgba(0, 0, 0, 0.8)', marginTop: '0px' }}>Locking System</h1>
-                <h3 style={{ textAlign: 'center', textShadow: '2px 2px 8px rgba(0, 0, 0, 0.8)', marginBottom: '0px' }}>Total Locked: {totalLocked ?? "?"} RETIREMENT</h3>
+                <p style={{ textAlign: 'center', marginTop: '0px' }}>(3 month term)</p>
+                <h3 style={{ textAlign: 'center', textShadow: '2px 2px 8px rgba(0, 0, 0, 0.8)', marginBottom: '0px' }}>Total Locked: {totalLocked ?? "?"} RETIREMENT </h3> 
+                <h3 style={{ textAlign: 'center', textShadow: '2px 2px 8px rgba(0, 0, 0, 0.8)', marginBottom: '0px',  marginTop: '0px' }}> ( {((totalLocked !== null)) ? ((totalLocked / totalSupply) * 100).toFixed(2) + "%" : "?"} ) of total supply</h3>
                 <p>Earn approximatley 4.3% APY on your Retirement Coin! This will be offered as a 1% return over 3 month terms. Some will pledge to lock their tokens not only for a reward, but to show the strength of our community and their belief in our project! </p>
                 <button
                   className="uk-button uk-button-secondary"
