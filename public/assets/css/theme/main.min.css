@@ -23604,6 +23604,28 @@ html.bp-xl .uk-button-large\@xl.uk-button-justify {
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+
+  display: inline-block; /* Allows pseudo-elements like ::after */
+  position: relative; /* Needed for absolute positioning of ::after */
+}
+
+
+.uk-dark .uk-text-gradient::after,
+.uk-dark.uk-text-gradient::after {
+  content: attr(data-text); /* Copies the text */
+  position: absolute;
+  left: 3px; /* Shadow offset */
+  top: 3px;
+  z-index: -1; /* Moves shadow behind the text */
+  color: black; /* Shadow color */
+  opacity: 0.8; /* Adjust shadow visibility */
+  font-size: inherit; /* Ensures shadow matches the text size */
+  font-weight: inherit;
+  white-space: nowrap; /* Prevents text from breaking */
+  -webkit-text-fill-color: rgb(255, 255, 255) !important; /* Overrides transparent */
+
+
+  text-shadow:  2px 2px 8px rgba(255, 255, 255, 0.8);
 }
 
 .uk-text-meta,

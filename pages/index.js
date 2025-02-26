@@ -154,7 +154,7 @@ const Home = () => {
                       <WalletMultiButton />
                     </div>*/}
                     <br></br>
-                    <h1>Welcome to the coin dashboard </h1> {/*<h3 style={{ marginTop: "0" }}>(WIP)</h3> */}
+                    <h1>Welcome to the Coin Dashboard </h1> {/*<h3 style={{ marginTop: "0" }}>(WIP)</h3> */}
 
                     {wallet.connected && (
                       <>

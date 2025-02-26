@@ -487,7 +487,9 @@ const Home = () => {
               <div className="uk-container" style={{ marginBottom: '100px' }}>
                 <br></br><br></br><br></br>
                 <h3 style={{ textAlign: 'center', marginBottom: '0px' }}>Welcome to the</h3>
-                <h1 style={{ fontSize: '4rem', fontWeight: 'bold', textAlign: 'center', textShadow: '2px 2px 8px rgba(0, 0, 0, 0.8)', marginTop: '0px' }}>Locking System</h1>
+                <div style={{ textAlign: 'center' }}>
+                <h1 className="uk-text-gradient" data-text="Locking System" style={{ fontSize: '4rem', fontWeight: 'bold' , marginTop: '0px'}}>Locking System</h1>
+                </div>
                 <p style={{ textAlign: 'center', marginTop: '0px' }}>(3 month term)</p>
                 <h3 style={{ textAlign: 'center', marginBottom: '0px' }}>Total Locked: {totalLocked ?? "?"} RETIREMENT </h3> 
                 <h3 style={{ textAlign: 'center', marginBottom: '0px',  marginTop: '0px' }}> ( {((totalLocked !== null)) ? ((totalLocked / totalSupply) * 100).toFixed(2) + "%" : "?"} ) of total supply</h3>
