@@ -169,12 +169,12 @@ button.wallet-adapter-button-trigger:hover {
 }
 
 .custom-orange-progress::-webkit-progress-value {
-  background-color:  #ffb397 !important; /* Orange fill */
+  background-color:  rgb(44, 89, 236) !important; /*  fill */
   border-radius: 5px;
 }
 
 .custom-orange-progress::-moz-progress-bar {
-  background-color:  #ffb397 !important; /* Orange fill */
+  background-color:  rgb(44, 89, 236) !important; /*  fill */
   border-radius: 5px;
 }
 
