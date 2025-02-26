@@ -64,7 +64,7 @@ const Home = () => {
                   style={{ height: "auto" }}
                 >
                   <div className="centerText">
-                    <h1>Welcome to the Coin Viewer</h1>
+                    <h1>Welcome to the <span className="uk-text-gradient" data-text="Coin Viewer">Coin Viewer</span></h1>
                     {/*<div className="uk-button uk-button-large@m uk-button-gradient uk-margin-small-top" >
                       <WalletMultiButton />
                     </div>*/}

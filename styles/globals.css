@@ -98,12 +98,19 @@ button.wallet-adapter-button-trigger:hover {
 }
 
 .boxS{
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
-  border-top-left-radius: 20px; /* Adjust radius as needed */
-      border-top-right-radius: 20px;
-      overflow: hidden; /* Ensures the gradient stays within the rounded corners */
+  
+}
 
-      max-width: 100vw;
+
+.uk-dark .boxS,
+.uk-dark.boxS  {
+  /*
+  background: linear-gradient(to bottom,  rgb(56, 134, 65), rgba(255, 255, 255, 0));
+  border-top-left-radius: 20px; 
+      border-top-right-radius: 20px;
+      overflow: hidden;
+
+      max-width: 100vw;*/
 }
 
 .chakra-accordion__button{

@@ -151,7 +151,7 @@ const Home = () => {
 
               <div className="uk-container">
                 <br></br><br></br><br></br>
-                <h1>Welcome to the Voting System</h1>
+                <h1>Welcome to the <span className="uk-text-gradient" data-text="Voting System">Voting System</span></h1>
                 <div className="uk-flex uk-flex-wrap uk-flex-center uk-width-1-1">
                 <button className="uk-button uk-button-large@m uk-button-gradient buttMarg"><WalletButton />  </button>
                 <button

@@ -214,20 +214,24 @@ export default function Home() {
           <CardHeader>
             <Flex minWidth='max-content' alignItems='center' gap='2' justifyContent="center" >
               <Box maxWidth='60vw'>
-
-                <Heading size='md' className="darkText">{headerText}</Heading>
+              
+                {/*<Heading size='md' className="dark:uk-text-gray-10">{headerText}</Heading>*/}
+                <Heading className="dark:uk-text-gray-10"><span className="uk-text-gradient" data-text="Mint">Mint</span> OG Retirement Coin</Heading>
 
                 <br></br>
                 {loading ? (<></>) : (
                   <Flex justifyContent="center" marginLeft="auto">
                     <Box maxWidth={"400px"} borderRadius={"5px"} minWidth={"50px"} minHeight={"50px"} p={2} >
                       <VStack >
-                        <Text fontSize={"sm"} className="darkText noMarg">Available Coins:</Text>
-                        <Text fontWeight={"semibold"} className="darkText noTopMarg">{Number(candyMachine?.data.itemsAvailable) - Number(candyMachine?.itemsRedeemed)}/{Number(candyMachine?.data.itemsAvailable)}</Text>
+                        <Text fontSize={"sm"} className="dark:uk-text-gray-10 noMarg">Available Coins:</Text>
+                        <Text fontWeight={"semibold"} className="dark:uk-text-gray-10 noTopMarg">{Number(candyMachine?.data.itemsAvailable) - Number(candyMachine?.itemsRedeemed)}/{Number(candyMachine?.data.itemsAvailable)}</Text>
                       </VStack>
-                      <Box whiteSpace="normal" wordBreak="break-word">
-                        <Text fontSize={"sm"} className="darkText noMarg">
-                          <b>🚀 The Jackpot is Growing! 🚀</b>
+                      <Box  whiteSpace="normal" wordBreak="break-word">
+                      <Text fontSize={"sm"} className="dark:uk-text-gray-10 noMarg" style={{textAlign:"center"}}>
+                      <b>🚀 The Jackpot is Growing! 🚀</b>
+                      </Text>
+                        <Text fontSize={"sm"} className="dark:uk-text-gray-10 noMarg" style={{textAlign:"justify"}}>
+                          
                           <br />
                           Ever since coin #1060 was minted, the 0.5 SOL jackpot has been accumulating 0.03 SOL for each new mint! With{" "}
                           {Number(candyMachine?.data.itemsAvailable) - Number(candyMachine?.itemsRedeemed)} coins still available, the
@@ -236,10 +240,10 @@ export default function Home() {
                           <b>Whoever mints coin #47 will win the jackpot!</b><br />
                           Right now, the total prize pool sits at{" "}
                           <b>{(0.5 + (1060 - (Number(candyMachine?.data.itemsAvailable) - Number(candyMachine?.itemsRedeemed))) * 0.03).toFixed(2)} SOL</b>,
-                          and it&apos;s only getting bigger!<br /> Who will be the lucky one to claim it? 
+                          and it&apos;s only getting bigger! Who will be the lucky one to claim it? 
                           <br />
                           Mint now and get your chance at winning big! 
-                          <br />
+                          <br /><br />
                         </Text>
                       </Box>
 
@@ -391,11 +395,12 @@ export default function Home() {
                     <br></br>
                     <p className="dark:uk-text-gray-10"> <i> Own a masterpiece. Shape the future. Retirement Coin NFTs combine timeless art with the power of governance. </i></p>
 
-                    <div className="boxS">
+                    <div className="card uni-minting-item uk-card uk-card-medium uk-card-border uk-card-default uk-radius-medium uk-radius-large@m dark:uk-background-white-5">
                       <div className={styles.center}>
                         <PageContent key="content" />
                       </div>
                     </div>
+                    <br></br>
 
 
 
