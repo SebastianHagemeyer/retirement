@@ -493,7 +493,7 @@ const Home = () => {
                 <p style={{ textAlign: 'center', marginTop: '0px' }}>(3 month term)</p>
                 <h3 style={{ textAlign: 'center', marginBottom: '0px' }}>Total Locked: {totalLocked ?? "?"} RETIREMENT </h3> 
                 <h3 style={{ textAlign: 'center', marginBottom: '0px',  marginTop: '0px' }}> ( {((totalLocked !== null)) ? ((totalLocked / totalSupply) * 100).toFixed(2) + "%" : "?"} ) of total supply</h3>
-                <p>Earn approximatley 4.3% APY on your Retirement Coin! This will be offered as a 1% return over 3 month terms. Some will pledge to lock their tokens not only for a reward, but to show the strength of our community and their belief in our project! </p>
+                <p>After the 3 month term we will airdrop some percentage Retirement Coin to the wallets that lock (TBC). Some will pledge to lock their tokens not only for a reward, but to show the strength of our community and their belief in our project! </p>
                 <button
                   className="uk-button uk-button-secondary"
                   onClick={testF}
